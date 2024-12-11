@@ -1,0 +1,40 @@
+<header class="w-full bg-white shadow-md p-4 flex justify-between items-center">
+  <div class="text-lg font-semibold text-gray-800"><a [routerLink]="['/home']">Ana Sayfa</a></div>
+  <div class="relative flex items-center space-x-4">
+    <span class="text-gray-600">Said</span>
+    <!-- Dropdown Trigger -->
+    <div
+      class="w-8 h-8 rounded-full bg-orange-400 text-white flex items-center justify-center cursor-pointer"
+      (click)="toggleDropdown($event)"
+    >
+      A
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div
+      *ngIf="isDropdownOpen"
+      class="absolute right-0 mt-2 bg-white border rounded shadow-md w-48 dark:bg-gray-800"
+    >
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-300">
+        <li>
+          <button
+            type="button"
+            class="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+            (click)="openUserInfo()"
+          >
+            Kullanıcı Bilgileri
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+            (click)="logout()"
+          >
+            Çıkış Yap
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,50 @@
+<main class="w-full max-w-4xl mx-auto grid grid-cols-4 gap-6 mt-8 p-4 place-items-center">
+  <!-- Yetki Yönetimi Oluştur -->
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <a [routerLink]="['/user-authority-create']">
+      <div class="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center text-white text-2xl">💬</div>
+      <span class="mt-2 text-gray-700 font-medium">Yetki Yönetimi Oluştur</span>
+    </a>
+  </div>
+
+  <!-- Yetki Yönetimi Listele -->
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <a [routerLink]="['/user-authority-list']">
+      <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-white text-2xl">📋</div>
+      <span class="mt-2 text-gray-700 font-medium">Yetki Yönetimi Listele</span>
+    </a>
+  </div>
+
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <a [routerLink]="['/add-user']">
+      <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👤</div>
+      <span class="mt-2 text-gray-700 font-medium">Kullanıcı Ekle</span>
+    </a>
+  </div>
+
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <a [routerLink]="['/manage-user']">
+      <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👤</div>
+      <span class="mt-2 text-gray-700 font-medium">Kullanıcıları Düzenle</span>
+    </a>
+  </div>
+
+  <!-- Takvim -->
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-white text-2xl">📅</div>
+    <span class="mt-2 text-gray-700 font-medium">Takvim</span>
+  </div>
+
+  <!-- Randevular -->
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-white text-2xl">✔️</div>
+    <span class="mt-2 text-gray-700 font-medium">Randevular</span>
+  </div>
+
+  <!-- To-do -->
+  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md">
+    <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center text-white text-2xl">✏️</div>
+    <span class="mt-2 text-gray-700 font-medium">To-do</span>
+  </div>
+</main>
+<router-outlet></router-outlet>
