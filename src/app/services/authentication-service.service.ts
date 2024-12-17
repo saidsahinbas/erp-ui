@@ -8,12 +8,16 @@ import {Observable} from "rxjs";
 })
 export class AuthenticationServiceService {
 
-  private readonly loginUrl = 'http://localhost:8080/erp/user/login';
+  private readonly loginUrl = 'http://localhost:8081/api/auth/login';
 
   constructor(private httpClient: HttpClient) {
   }
 
   login(loginRequest: LoginRequest): Observable<boolean> {
     return this.httpClient.post<boolean>(`${this.loginUrl}`, loginRequest);
+  }
+
+  isAuthenticated(): boolean {
+    return !!sessionStorage.getItem('userSession');
   }
 }

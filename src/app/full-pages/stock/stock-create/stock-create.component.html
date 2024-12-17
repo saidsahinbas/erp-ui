@@ -1,0 +1,121 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto bg-white shadow rounded-lg p-6">
+    <!-- Header -->
+    <h2 class="text-xl font-bold mb-6">Stok Açılış Ekranı</h2>
+
+    <!-- Form Section -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+      <!-- Fiş Numarası -->
+      <div>
+        <label for="fis-numarasi" class="block text-sm font-medium text-gray-700">Fiş Numarası:</label>
+        <input
+          type="text"
+          id="fis-numarasi"
+          placeholder="Fiş numarası girin..."
+          class="mt-1 block w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <!-- Depo -->
+      <div>
+        <label for="depo" class="block text-sm font-medium text-gray-700">Depo:</label>
+        <select
+          id="depo"
+          class="mt-1 block w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        >
+          <option>Depo 1</option>
+          <option>Depo 2</option>
+        </select>
+      </div>
+
+      <!-- Fiş Tarihi -->
+      <div>
+        <label for="fis-tarihi" class="block text-sm font-medium text-gray-700">Fiş Tarihi:</label>
+        <input
+          type="date"
+          id="fis-tarihi"
+          class="mt-1 block w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <!-- Ürün Seç Button -->
+      <div class="flex items-end">
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Ürün Seç
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded-lg">
+        <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="px-4 py-2 text-left border-b">Ürün Adı</th>
+          <th class="px-4 py-2 text-left border-b">Kategori</th>
+          <th class="px-4 py-2 text-left border-b">Alış Fiyatı</th>
+          <th class="px-4 py-2 text-left border-b">Satış Fiyatı</th>
+          <th class="px-4 py-2 text-left border-b">Tedarikçi</th>
+          <th class="px-4 py-2 text-left border-b">Miktar</th>
+          <th class="px-4 py-2 text-left border-b">Fiyat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-gray-700">
+          <td class="px-4 py-2 border-b">Kamera Lens</td>
+          <td class="px-4 py-2 border-b">HMM</td>
+          <td class="px-4 py-2 border-b">100</td>
+          <td class="px-4 py-2 border-b">150</td>
+          <td class="px-4 py-2 border-b">Tedarikçi 1</td>
+          <td class="px-4 py-2 border-b">
+            <input
+              type="text"
+              placeholder="Miktar girin"
+              class="w-full border rounded-lg px-2 py-1 focus:ring focus:ring-blue-500 focus:outline-none"
+            />
+          </td>
+          <td class="px-4 py-2 border-b">
+            <input
+              type="text"
+              placeholder="Fiyat girin"
+              class="w-full border rounded-lg px-2 py-1 focus:ring focus:ring-blue-500 focus:outline-none"
+            />
+          </td>
+        </tr>
+        <tr class="text-gray-700">
+          <td class="px-4 py-2 border-b">Elektronik Devre</td>
+          <td class="px-4 py-2 border-b">HMM</td>
+          <td class="px-4 py-2 border-b">200</td>
+          <td class="px-4 py-2 border-b">300</td>
+          <td class="px-4 py-2 border-b">Tedarikçi 2</td>
+          <td class="px-4 py-2 border-b">
+            <input
+              type="text"
+              placeholder="Miktar girin"
+              class="w-full border rounded-lg px-2 py-1 focus:ring focus:ring-blue-500 focus:outline-none"
+            />
+          </td>
+          <td class="px-4 py-2 border-b">
+            <input
+              type="text"
+              placeholder="Fiyat girin"
+              class="w-full border rounded-lg px-2 py-1 focus:ring focus:ring-blue-500 focus:outline-none"
+            />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Save Button -->
+    <div class="flex justify-end mt-6">
+      <button
+        class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+      >
+        Stok Kaydet
+      </button>
+    </div>
+  </div>
+</div>

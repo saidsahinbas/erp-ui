@@ -2,36 +2,74 @@
   <!-- Header -->
   <h1 class="text-2xl font-bold mb-4">Kullanıcı Yönetimi</h1>
 
-  <!-- Form Inputs -->
-  <div class="flex space-x-4 mb-6">
-    <input
-      type="text"
-      placeholder="Kullanıcı Adı Girin"
-      class="border rounded-lg px-4 py-2 w-1/4 focus:ring focus:ring-blue-500 focus:outline-none"
-    />
-    <input
-      type="email"
-      placeholder="E-posta Girin"
-      class="border rounded-lg px-4 py-2 w-1/4 focus:ring focus:ring-blue-500 focus:outline-none"
-    />
-    <select
-      class="border rounded-lg px-4 py-2 w-1/4 focus:ring focus:ring-blue-500 focus:outline-none"
-    >
-      <option>Rol Seçin</option>
-      <option>Admin</option>
-      <option>Kullanıcı</option>
-    </select>
-    <select
-      class="border rounded-lg px-4 py-2 w-1/4 focus:ring focus:ring-blue-500 focus:outline-none"
-    >
-      <option>Yetki Grubu Seçin</option>
-      <option>Yetki Grubu 1</option>
-      <option>Yetki Grubu 2</option>
-    </select>
-    <button
-      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-    >
-      Kullanıcı Ekle
-    </button>
-  </div>
+  <!-- Form -->
+  <form class="space-y-6">
+    <!-- First Name and Last Name -->
+    <div class="flex space-x-4">
+      <input
+        type="text"
+        placeholder="Ad Girin"
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+      <input
+        type="text"
+        placeholder="Soyad Girin"
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+    </div>
+
+    <!-- Email and Password -->
+    <div class="flex space-x-4">
+      <input
+        type="email"
+        placeholder="E-posta Girin"
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+      <input
+        type="password"
+        placeholder="Şifre Girin"
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+    </div>
+
+    <!-- Role and Status -->
+    <div class="flex space-x-4">
+      <select
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      >
+        <option value="">Rol Seçin</option>
+        <option value="1">Admin</option>
+        <option value="2">Kullanıcı</option>
+      </select>
+      <select
+        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
+      >
+        <option value="">Durum Seçin</option>
+        <option value="true">Aktif</option>
+        <option value="false">Pasif</option>
+      </select>
+    </div>
+
+    <!-- Authority ID -->
+    <div class="flex space-x-4">
+      <select
+        class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+      >
+        <option value="">Yetki Grubu Seçin</option>
+        <option value="1">Yetki Grubu 1</option>
+        <option value="2">Yetki Grubu 2</option>
+        <option value="3">Yetki Grubu 3</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"
+      >
+        Kullanıcı Ekle
+      </button>
+    </div>
+  </form>
 </div>

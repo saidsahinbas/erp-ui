@@ -8,7 +8,11 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'erp-ui';
+  isLoginRoute: boolean = false;
 
   constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      this.isLoginRoute = this.router.url === '/login';
+    });
   }
 }

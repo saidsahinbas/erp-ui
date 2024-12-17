@@ -9,34 +9,33 @@ import {AuthenticationServiceService} from "../../../services/authentication-ser
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  userEmail: string = '';
-  userPassword: string = '';
+  email: string = '';
+  password: string = '';
   loginError: boolean = false;
 
   constructor(
     private authService: AuthenticationServiceService,
     private router: Router
-  ) {
-  }
+  ) {}
 
-  onLogin(): void {
+  login() {
     const loginRequest: LoginRequest = {
-      email: this.userEmail,
-      password: this.userPassword
+      email: this.email,
+      password: this.password
     };
 
     this.authService.login(loginRequest).subscribe({
-      next: (isAuthenticated) => {
-        if (isAuthenticated) {
-          localStorage.setItem('userEmail', this.userEmail); // Store user email in localStorage
-          this.router.navigate(['/home']); // Redirect to home page
+      next: (response: any) => {
+        if (response.isAuthenticated) {
+          sessionStorage.setItem('userSession', JSON.stringify(response));
+          this.router.navigate(['/home']);
         } else {
-          this.loginError = true; // Display error message
+          alert('Giriş başarısız: Kullanıcı adı veya şifre hatalı.');
         }
       },
       error: (err) => {
         console.error('Login failed:', err);
-        this.loginError = true; // Display error message
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
       }
     });
   }

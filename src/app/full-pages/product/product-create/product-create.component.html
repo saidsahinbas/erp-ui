@@ -1,0 +1,90 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto bg-white shadow rounded-lg p-6">
+    <div class="grid grid-cols-3 gap-6">
+      <!-- Durum Section -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Durum</h2>
+        <div class="space-y-2">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Satışta</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Tedarik Ediliyor</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Aktif/Pasif</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Envantere Dahil</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
+            <span>Üretiliyor</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Ürün Bilgileri Section -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Ürün Bilgileri</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Ürün Adı:</label>
+            <input type="text" placeholder="Ürün adı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Kategori:</label>
+            <select class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+              <option>Hammadde</option>
+              <option>Kategori 1</option>
+              <option>Kategori 2</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Alış Fiyatı:</label>
+            <input type="text" placeholder="Alış fiyatı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Satış Fiyatı:</label>
+            <input type="text" placeholder="Satış fiyatı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Tedarikçi:</label>
+            <select class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+              <option>Tedarikçi 1</option>
+              <option>Tedarikçi 2</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Açıklama:</label>
+            <textarea placeholder="Açıklama girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dosya ve Görseller Section -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Dosya ve Görseller</h2>
+        <div class="space-y-4">
+          <button class="w-full border-dashed border-2 border-gray-400 rounded-lg p-6 text-gray-500 text-center hover:bg-gray-50">
+            Görsel Yükle
+          </button>
+          <button class="w-full border-dashed border-2 border-gray-400 rounded-lg p-6 text-gray-500 text-center hover:bg-gray-50">
+            Dosya Yükle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kaydet Button -->
+    <div class="mt-6">
+      <button class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">
+        Ürün Kaydet
+      </button>
+    </div>
+  </div>
+</div>

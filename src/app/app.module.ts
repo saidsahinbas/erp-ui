@@ -18,6 +18,17 @@ import {AuthenticationServiceService} from "./services/authentication-service.se
 import {HttpClientModule} from "@angular/common/http";
 import { UserCreateComponent } from './full-pages/user-authority/user-create/user-create.component';
 import { UserEditComponent } from './full-pages/user-authority/user-edit/user-edit.component';
+import { ProductCreateComponent } from './full-pages/product/product-create/product-create.component';
+import { ProductListComponent } from './full-pages/product/product-list/product-list.component';
+import { StockCreateComponent } from './full-pages/stock/stock-create/stock-create.component';
+import { StockManagementComponent } from './full-pages/stock/stock-management/stock-management.component';
+import { SupplierCreateComponent } from './full-pages/supplier/supplier-create/supplier-create.component';
+import { SupplierListComponent } from './full-pages/supplier/supplier-list/supplier-list.component';
+import { SupplierPerformanceComponent } from './full-pages/supplier/supplier-performance/supplier-performance.component';
+import { PurchasingRequestCreateComponent } from './full-pages/purchasing/purchasing-request-create/purchasing-request-create.component';
+import { PurchasingRequestApprovalComponent } from './full-pages/purchasing/purchasing-request-approval/purchasing-request-approval.component';
+import { ProductDetailComponent } from './full-pages/product/product-detail/product-detail.component';
+import { QualityControlTestResultsComponent } from './full-pages/quality-control/quality-control-test-results/quality-control-test-results.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +39,18 @@ import { UserEditComponent } from './full-pages/user-authority/user-edit/user-ed
     HomeComponent,
     LoginComponent,
     UserCreateComponent,
-    UserEditComponent
+    UserEditComponent,
+    ProductCreateComponent,
+    ProductListComponent,
+    StockCreateComponent,
+    StockManagementComponent,
+    SupplierCreateComponent,
+    SupplierListComponent,
+    SupplierPerformanceComponent,
+    PurchasingRequestCreateComponent,
+    PurchasingRequestApprovalComponent,
+    ProductDetailComponent,
+    QualityControlTestResultsComponent
   ],
   imports: [
     BrowserModule,

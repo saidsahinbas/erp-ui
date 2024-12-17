@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.isDropdownOpen = false;
     alert('Çıkış Yapılıyor');
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 

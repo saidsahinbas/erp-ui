@@ -1,0 +1,81 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto bg-white shadow rounded-lg p-6">
+    <!-- Header -->
+    <h2 class="text-xl font-bold mb-6">Ürün Listeleme</h2>
+
+    <!-- Filter Section -->
+    <div class="grid grid-cols-5 gap-4 mb-6">
+      <input
+        type="text"
+        placeholder="Ürün adı yazın..."
+        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+      <input
+        type="text"
+        placeholder="Stok kodu yazın..."
+        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+      />
+      <select
+        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+      >
+        <option>Tümü</option>
+        <option>Hammadde</option>
+        <option>Elektronik</option>
+      </select>
+      <select
+        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+      >
+        <option>Tümü</option>
+        <option>Tedarikçi 1</option>
+        <option>Tedarikçi 2</option>
+      </select>
+      <button
+        class="col-span-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+      >
+        Filtrele
+      </button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded-lg">
+        <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="px-4 py-2 text-left border-b">Ürün Adı</th>
+          <th class="px-4 py-2 text-left border-b">Stok Kodu</th>
+          <th class="px-4 py-2 text-left border-b">Alış Fiyatı</th>
+          <th class="px-4 py-2 text-left border-b">Satış Fiyatı</th>
+          <th class="px-4 py-2 text-left border-b">Kategori</th>
+          <th class="px-4 py-2 text-left border-b">Tedarikçi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-gray-700">
+          <td class="px-4 py-2 border-b">Kamera Lens</td>
+          <td class="px-4 py-2 border-b">HMM.1</td>
+          <td class="px-4 py-2 border-b">100</td>
+          <td class="px-4 py-2 border-b">150</td>
+          <td class="px-4 py-2 border-b">HMM</td>
+          <td class="px-4 py-2 border-b">Tedarikçi 1</td>
+        </tr>
+        <tr class="text-gray-700">
+          <td class="px-4 py-2 border-b">Elektronik Devre</td>
+          <td class="px-4 py-2 border-b">HMM.2</td>
+          <td class="px-4 py-2 border-b">200</td>
+          <td class="px-4 py-2 border-b">300</td>
+          <td class="px-4 py-2 border-b">HMM</td>
+          <td class="px-4 py-2 border-b">Tedarikçi 2</td>
+        </tr>
+        <tr class="text-gray-700">
+          <td class="px-4 py-2 border-b">Plastik Gövde</td>
+          <td class="px-4 py-2 border-b">YM.1</td>
+          <td class="px-4 py-2 border-b">50</td>
+          <td class="px-4 py-2 border-b">80</td>
+          <td class="px-4 py-2 border-b">YM</td>
+          <td class="px-4 py-2 border-b">Tedarikçi 3</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

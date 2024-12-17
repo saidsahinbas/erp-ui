@@ -1,0 +1,104 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">Satın Alma Talep Yönetimi</h1>
+
+  <!-- Form Section -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+    <div class="grid grid-cols-2 gap-6">
+      <!-- Talep Başlığı -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Talep Başlığı:</label>
+        <input
+          type="text"
+          placeholder="Talep başlığı girin"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        />
+      </div>
+      <!-- Talep Eden -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Talep Eden:</label>
+        <input
+          type="text"
+          value="Kullanıcı Adı"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none"
+          readonly
+        />
+      </div>
+      <!-- Talep Tarihi -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Talep Tarihi:</label>
+        <input
+          type="date"
+          value="2024-12-01"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        />
+      </div>
+      <!-- Tedarikçi -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Tedarikçi:</label>
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        >
+          <option>Tedarikçi 1</option>
+          <option>Tedarikçi 2</option>
+        </select>
+      </div>
+      <!-- Giriş Depo -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Giriş Depo:</label>
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        >
+          <option>Depo 1</option>
+          <option>Depo 2</option>
+        </select>
+      </div>
+      <!-- Açıklama -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Açıklama:</label>
+        <textarea
+          rows="2"
+          placeholder="Açıklama girin"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Ürün Seç Butonu -->
+    <div class="mt-6">
+      <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg">
+        Ürün Seç
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="bg-white p-6 rounded-lg shadow-md">
+    <table class="w-full text-sm text-left border-collapse">
+      <thead>
+      <tr class="bg-gray-100 text-gray-600">
+        <th class="p-3 border">Ürün Adı</th>
+        <th class="p-3 border">Kategori</th>
+        <th class="p-3 border">Alış Fiyatı</th>
+        <th class="p-3 border">Satış Fiyatı</th>
+        <th class="p-3 border">Miktar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="text-gray-700">
+        <td class="p-3 border">Kamera Lens</td>
+        <td class="p-3 border">Hammadde</td>
+        <td class="p-3 border">100</td>
+        <td class="p-3 border">150</td>
+        <td class="p-3 border">
+          <input
+            type="number"
+            placeholder="Miktar girin"
+            class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+          />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
