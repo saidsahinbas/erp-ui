@@ -14,7 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {routes} from './app.routes'
 import {HomeComponent} from './full-pages/home/home.component';
 import {LoginComponent} from './full-pages/auth/login/login.component';
-import {AuthenticationServiceService} from "./services/authentication-service.service";
+import {AuthenticationService} from "./services/authentication.service";
 import {HttpClientModule} from "@angular/common/http";
 import { UserCreateComponent } from './full-pages/user-authority/user-create/user-create.component';
 import { UserEditComponent } from './full-pages/user-authority/user-edit/user-edit.component';
@@ -58,7 +58,7 @@ import { QualityControlTestResultsComponent } from './full-pages/quality-control
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthenticationServiceService],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

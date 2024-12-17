@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {LoginRequest} from "../models/login-request";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationServiceService {
+export class AuthenticationService {
 
   private readonly loginUrl = 'http://localhost:8081/api/auth/login';
 
@@ -19,5 +19,9 @@ export class AuthenticationServiceService {
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem('userSession');
+  }
+
+  logout() {
+    sessionStorage.removeItem('userSession');
   }
 }

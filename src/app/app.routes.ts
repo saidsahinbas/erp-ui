@@ -11,7 +11,6 @@ import {ProductDetailComponent} from "./full-pages/product/product-detail/produc
 import {ProductCreateComponent} from "./full-pages/product/product-create/product-create.component";
 import {StockCreateComponent} from "./full-pages/stock/stock-create/stock-create.component";
 import {StockManagementComponent} from "./full-pages/stock/stock-management/stock-management.component";
-import * as path from "path";
 import {SupplierListComponent} from "./full-pages/supplier/supplier-list/supplier-list.component";
 import {SupplierPerformanceComponent} from "./full-pages/supplier/supplier-performance/supplier-performance.component";
 import {SupplierCreateComponent} from "./full-pages/supplier/supplier-create/supplier-create.component";
@@ -24,44 +23,48 @@ import {
 import {
   QualityControlTestResultsComponent
 } from "./full-pages/quality-control/quality-control-test-results/quality-control-test-results.component";
-
+import {AuthGuard} from "./auth.guard";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: 'products',
     children: [
-      { path: '', component: ProductListComponent },
-      { path: 'create', component: ProductCreateComponent },
-      { path: ':id', component: ProductDetailComponent },
-    ]
+      { path: '', component: ProductListComponent, canActivate: [AuthGuard] },
+      { path: 'create', component: ProductCreateComponent, canActivate: [AuthGuard] },
+      { path: ':id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+    ],
+    canActivate: [AuthGuard]
   },
   { path: 'stocks',
     children: [
-      { path: 'create', component: StockCreateComponent },
-      { path: 'management', component: StockManagementComponent },
-    ]
+      { path: 'create', component: StockCreateComponent, canActivate: [AuthGuard] },
+      { path: 'management', component: StockManagementComponent, canActivate: [AuthGuard] },
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'suppliers',
     children: [
-      { path: '', component: SupplierListComponent },
-      { path: 'performance', component: SupplierPerformanceComponent },
-      { path: 'create', component: SupplierCreateComponent },
-    ]
+      { path: '', component: SupplierListComponent, canActivate: [AuthGuard] },
+      { path: 'performance', component: SupplierPerformanceComponent, canActivate: [AuthGuard] },
+      { path: 'create', component: SupplierCreateComponent, canActivate: [AuthGuard] },
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'purchase',
     children: [
-      { path: 'create', component: PurchasingRequestCreateComponent },
-      { path: 'approval', component: PurchasingRequestApprovalComponent },
-    ]
+      { path: 'create', component: PurchasingRequestCreateComponent, canActivate: [AuthGuard] },
+      { path: 'approval', component: PurchasingRequestApprovalComponent, canActivate: [AuthGuard] },
+    ],
+    canActivate: [AuthGuard]
   },
-  { path: 'quality', component: QualityControlTestResultsComponent },
-  { path: 'add-user', component: UserCreateComponent },
-  { path: 'manage-user', component: UserEditComponent },
-  { path: 'user-authority-create', component: UserAuthorityCreateComponent },
-  { path: 'user-authority-list', component: UserAuthorityListComponent },
+  { path: 'quality', component: QualityControlTestResultsComponent, canActivate: [AuthGuard] },
+  { path: 'add-user', component: UserCreateComponent, canActivate: [AuthGuard] },
+  { path: 'manage-user', component: UserEditComponent, canActivate: [AuthGuard] },
+  { path: 'user-authority-create', component: UserAuthorityCreateComponent, canActivate: [AuthGuard] },
+  { path: 'user-authority-list', component: UserAuthorityListComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

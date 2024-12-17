@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginRequest} from "../../../models/login-request";
-import {AuthenticationServiceService} from "../../../services/authentication-service.service";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent {
   loginError: boolean = false;
 
   constructor(
-    private authService: AuthenticationServiceService,
+    private authService: AuthenticationService,
     private router: Router
   ) {}
 
