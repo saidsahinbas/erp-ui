@@ -1,5 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,11 +8,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  user: any = null;
+  userFullName: string;
   isDropdownOpen = false;
   isLoggedIn = false;
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
 
+  }
 
   toggleDropdown(event: MouseEvent) {
     event.stopPropagation(); // Dropdown'a tıklamayı diğer eventlerden izole et
@@ -20,18 +24,17 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   closeDropdown(event: MouseEvent) {
-    // Ekranın herhangi bir yerine tıklanınca dropdown kapanır
     this.isDropdownOpen = false;
   }
 
   openUserInfo() {
     this.isDropdownOpen = false;
-    alert('Kullanıcı Bilgileri Açıldı');
+    this.router.navigate(['/user-detail']);
   }
 
   logout() {
     this.isDropdownOpen = false;
-    alert('Çıkış Yapılıyor');
+    this.authenticationService.logout();
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
@@ -40,5 +43,11 @@ export class NavbarComponent implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.isLoggedIn = !!userEmail; // userEmail varsa true, yoksa false
 
+    const userSession = sessionStorage.getItem('userSession');
+    if (userSession) {
+      this.user = JSON.parse(userSession);
+    }
+
+    this.userFullName = this.user.firstName + ' ' + this.user.lastName;
   }
 }

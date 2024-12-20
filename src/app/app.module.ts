@@ -29,6 +29,7 @@ import { PurchasingRequestCreateComponent } from './full-pages/purchasing/purcha
 import { PurchasingRequestApprovalComponent } from './full-pages/purchasing/purchasing-request-approval/purchasing-request-approval.component';
 import { ProductDetailComponent } from './full-pages/product/product-detail/product-detail.component';
 import { QualityControlTestResultsComponent } from './full-pages/quality-control/quality-control-test-results/quality-control-test-results.component';
+import { UserDetailComponent } from './full-pages/user-authority/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { QualityControlTestResultsComponent } from './full-pages/quality-control
     PurchasingRequestCreateComponent,
     PurchasingRequestApprovalComponent,
     ProductDetailComponent,
-    QualityControlTestResultsComponent
+    QualityControlTestResultsComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

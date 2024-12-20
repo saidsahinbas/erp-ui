@@ -1,0 +1,67 @@
+<div class="relative overflow-x-auto">
+  <!-- User General Details Table -->
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mb-8">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="px-6 py-3">Key</th>
+      <th scope="col" class="px-6 py-3">Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        First Name
+      </th>
+      <td class="px-6 py-4">{{ user?.firstName }}</td>
+    </tr>
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        Last Name
+      </th>
+      <td class="px-6 py-4">{{ user?.lastName }}</td>
+    </tr>
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        Email
+      </th>
+      <td class="px-6 py-4">{{ user?.email }}</td>
+    </tr>
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        Role
+      </th>
+      <td class="px-6 py-4">{{ user?.role?.name }}</td>
+    </tr>
+    <tr class="bg-white dark:bg-gray-800">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        Is Authenticated
+      </th>
+      <td class="px-6 py-4">{{ user?.isAuthenticated }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- User Screens Permissions Table -->
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="px-6 py-3">Screen Name</th>
+      <th scope="col" class="px-6 py-3">Read</th>
+      <th scope="col" class="px-6 py-3">Create</th>
+      <th scope="col" class="px-6 py-3">Update</th>
+      <th scope="col" class="px-6 py-3">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let screen of user?.screens" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {{ screen.screenName }}
+      </th>
+      <td class="px-6 py-4">{{ screen.read }}</td>
+      <td class="px-6 py-4">{{ screen.create }}</td>
+      <td class="px-6 py-4">{{ screen.update }}</td>
+      <td class="px-6 py-4">{{ screen.delete }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

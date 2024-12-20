@@ -8,12 +8,35 @@ import {AuthenticationService} from "../../services/authentication.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  dropdownStates: any = {
+    user: false,
+    product: false,
+    stock: false,
+    supplier: false,
+    purchase: false,
+    quality: false
+  };
+
   constructor(private router: Router,
-              private authService: AuthenticationService) {}
+              private authService: AuthenticationService) {
+
+  }
 
   ngOnInit() {
-    if(!this.authService.isAuthenticated()){
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
     }
   }
+
+  toggleDropdown(dropdownName: string): void {
+    Object.keys(this.dropdownStates).forEach(key => {
+      this.dropdownStates[key] = key === dropdownName ? !this.dropdownStates[key] : false;
+    });
+  }
+
+  isDropdownOpen(dropdownName: string): boolean {
+    return this.dropdownStates[dropdownName];
+  }
+
+
 }

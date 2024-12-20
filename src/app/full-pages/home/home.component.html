@@ -1,105 +1,193 @@
 <main class="w-full max-w-6xl mx-auto grid grid-cols-4 gap-6 mt-8 p-4 place-items-center">
   <!-- User Authority Create -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/user-authority-create']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center text-white text-2xl">💬</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Yetki Yönetimi Oluştur</span>
-    </a>
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('user')">
+        <span class="text-lg font-medium text-gray-800">Kullanıcı İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('user')" class="mt-2 bg-white shadow rounded">
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/user-authority-create']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center text-white text-2xl">💬
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Yetki Yönetimi Oluştur</span>
+          </a>
+        </div>
+
+        <!-- User Authority List -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/user-authority-list']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-white text-2xl">📋
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Yetki Yönetimi Listele</span>
+          </a>
+        </div>
+
+        <!-- Add User -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/add-user']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👤
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Kullanıcı Ekle</span>
+          </a>
+        </div>
+
+        <!-- Manage User -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/manage-user']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👥
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Kullanıcıları Düzenle</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- User Authority List -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/user-authority-list']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-white text-2xl">📋</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Yetki Yönetimi Listele</span>
-    </a>
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('product')">
+        <span class="text-lg font-medium text-gray-800">Ürün İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('product')" class="mt-2 bg-white shadow rounded">
+        <!-- Product List -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/products']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-indigo-400 rounded-full flex items-center justify-center text-white text-2xl">📦
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Ürün Listesi</span>
+          </a>
+        </div>
+
+        <!-- Product Create -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/products/create']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-white text-2xl">➕
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Yeni Ürün Ekle</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Add User -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/add-user']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👤</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Kullanıcı Ekle</span>
-    </a>
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('stock')">
+        <span class="text-lg font-medium text-gray-800">Stok İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('stock')" class="mt-2 bg-white shadow rounded">
+        <!-- Stock Management -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/stocks/management']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center text-white text-2xl">📊</div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Stok Yönetimi</span>
+          </a>
+        </div>
+
+        <!-- Stock Create -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/stocks/create']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center text-white text-2xl">📝</div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Yeni Stok Ekle</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Manage User -->
-  <div  class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/manage-user']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-purple-400 rounded-full flex items-center justify-center text-white text-2xl">👥</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Kullanıcıları Düzenle</span>
-    </a>
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('supplier')">
+        <span class="text-lg font-medium text-gray-800">Tedarikçi İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('supplier')" class="mt-2 bg-white shadow rounded">
+        <!-- Supplier List -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/suppliers']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Tedarikçi Listesi</span>
+          </a>
+        </div>
+
+        <!-- Supplier Performance -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/suppliers/performance']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Tedarikçi Performansı</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Product List -->
-  <div  class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/products']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-indigo-400 rounded-full flex items-center justify-center text-white text-2xl">📦</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Ürün Listesi</span>
-    </a>
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('purchase')">
+        <span class="text-lg font-medium text-gray-800">Satın Alma İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('purchase')" class="mt-2 bg-white shadow rounded">
+        <!-- Purchasing Request Create -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/purchase/create']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl">🛒
+            </div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Satın Alma Talebi</span>
+          </a>
+        </div>
+
+        <!-- Purchasing Request Approval -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/purchase/approval']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-teal-400 rounded-full flex items-center justify-center text-white text-2xl">✅</div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Talep Onay</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Product Create -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/products/create']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-white text-2xl">➕</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Yeni Ürün Ekle</span>
-    </a>
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="w-full flex items-center justify-between bg-gray-200 p-4 rounded-lg shadow"
+              type="button"
+              (click)="toggleDropdown('quality')">
+        <span class="text-lg font-medium text-gray-800">Kalite Kontrol İşlemleri</span>
+        <span>&#9660;</span> <!-- Aşağı ok işareti -->
+      </button>
+      <div *ngIf="isDropdownOpen('quality')" class="mt-2 bg-white shadow rounded">
+        <!-- Quality Control Test Results -->
+        <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
+          <a [routerLink]="['/quality']" class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
+            <span class="mt-4 text-gray-700 font-medium text-center">Kalite Kontrol</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Stock Management -->
-  <div  class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/stocks/management']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center text-white text-2xl">📊</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Stok Yönetimi</span>
-    </a>
-  </div>
 
-  <!-- Stock Create -->
-  <div  class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/stocks/create']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center text-white text-2xl">📝</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Yeni Stok Ekle</span>
-    </a>
-  </div>
-
-  <!-- Supplier List -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/suppliers']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Tedarikçi Listesi</span>
-    </a>
-  </div>
-
-  <!-- Supplier Performance -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/suppliers/performance']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Tedarikçi Performansı</span>
-    </a>
-  </div>
-
-  <!-- Purchasing Request Create -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/purchase/create']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl">🛒</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Satın Alma Talebi</span>
-    </a>
-  </div>
-
-  <!-- Purchasing Request Approval -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/purchase/approval']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-teal-400 rounded-full flex items-center justify-center text-white text-2xl">✅</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Talep Onay</span>
-    </a>
-  </div>
-
-  <!-- Quality Control Test Results -->
-  <div class="flex flex-col items-center bg-white p-4 rounded shadow-md w-40 h-40">
-    <a [routerLink]="['/quality']" class="flex flex-col items-center">
-      <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
-      <span class="mt-4 text-gray-700 font-medium text-center">Kalite Kontrol</span>
-    </a>
-  </div>
 </main>
