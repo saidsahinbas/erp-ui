@@ -2,56 +2,41 @@
   <!-- Header -->
   <h1 class="text-2xl font-bold mb-4">Kullanıcı Yönetimi</h1>
 
-  <!-- Table -->
+  <!-- Users Table -->
   <div class="overflow-x-auto">
     <table class="w-full border-collapse border border-gray-300">
       <thead>
       <tr class="bg-gray-100">
-        <th class="border border-gray-300 px-4 py-2 text-left">ID</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Kullanıcı Adı</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">E-posta</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Rol</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Yetki Grubu</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Durum</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">İşlem</th>
+        <th class="border border-gray-300 px-4 py-2">#</th>
+        <th class="border border-gray-300 px-4 py-2">Kullanıcı Adı</th>
+        <th class="border border-gray-300 px-4 py-2">E-posta</th>
+        <th class="border border-gray-300 px-4 py-2">Yetki Grubu</th>
+        <th class="border border-gray-300 px-4 py-2">Durum</th>
+        <th class="border border-gray-300 px-4 py-2">İşlem</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">1</td>
-        <td class="border border-gray-300 px-4 py-2">Ali Veli</td>
-        <td class="border border-gray-300 px-4 py-2">ali@example.com</td>
-        <td class="border border-gray-300 px-4 py-2">Admin</td>
-        <td class="border border-gray-300 px-4 py-2">Yetki Grubu 1</td>
-        <td class="border border-gray-300 px-4 py-2 text-green-500">Aktif</td>
+      <tr *ngFor="let user of paginatedUsers; let i = index" class="bg-white border-b">
+        <!-- Display the calculated index -->
+        <td class="border border-gray-300 px-4 py-2">{{ (currentPageUsers - 1) * itemsPerPage + i + 1 }}</td>
         <td class="border border-gray-300 px-4 py-2">
-          <button
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-          >
-            Düzenle
-          </button>
-          <button
-            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ml-2"
-          >
-            Sil
-          </button>
+          {{ user.firstName }} {{ user.lastName }}
         </td>
-      </tr>
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">2</td>
-        <td class="border border-gray-300 px-4 py-2">Ayşe Fatma</td>
-        <td class="border border-gray-300 px-4 py-2">ayse@example.com</td>
-        <td class="border border-gray-300 px-4 py-2">Kullanıcı</td>
-        <td class="border border-gray-300 px-4 py-2">Yetki Grubu 2</td>
-        <td class="border border-gray-300 px-4 py-2 text-red-500">Pasif</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ user.authorityGroup?.name || '---' }}
+        </td>
+        <td
+          class="border border-gray-300 px-4 py-2"
+          [class.text-green-500]="user.status"
+          [class.text-red-500]="!user.status"
+        >
+          {{ user.status ? 'Aktif' : 'Pasif' }}
+        </td>
         <td class="border border-gray-300 px-4 py-2">
           <button
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-          >
-            Düzenle
-          </button>
-          <button
             class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ml-2"
+            (click)="openDeleteModal(user)"
           >
             Sil
           </button>
@@ -59,5 +44,68 @@
       </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Pagination" class="mt-4">
+    <ul class="inline-flex -space-x-px text-base">
+      <li>
+        <button
+          [disabled]="currentPageUsers === 1"
+          (click)="previousPage()"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Önceki
+        </button>
+      </li>
+      <li *ngFor="let page of pagesUsers; let i = index">
+        <button
+          (click)="goToPage(i + 1)"
+          [class.bg-blue-500]="currentPageUsers === i + 1"
+          [class.text-white]="currentPageUsers === i + 1"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPageUsers === totalPagesUsers"
+          (click)="nextPage()"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Sonraki
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Delete Modal -->
+  <div
+    id="deleteModal"
+    [class.hidden]="!showModal"
+    class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+      <h2 class="text-xl font-bold mb-4">Kullanıcıyı Sil</h2>
+      <p class="mb-4">
+        <span>{{ selectedUser?.firstName }} {{ selectedUser?.lastName }}</span>
+        kullanıcısını silmek istediğinizden emin misiniz?
+      </p>
+      <div class="flex justify-end space-x-4">
+        <button
+          class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          (click)="closeModal()"
+        >
+          İptal
+        </button>
+        <button
+          class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          (click)="deleteUser(selectedUser?.id)"
+        >
+          Sil
+        </button>
+      </div>
+    </div>
   </div>
 </div>

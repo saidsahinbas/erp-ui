@@ -1,5 +1,6 @@
 import {RoleType} from './role-type';
 import {StatusType} from './status-type';
+import {AuthorityGroup} from "./authority-group";
 
 export class User {
   id?: number;
@@ -9,5 +10,5 @@ export class User {
   email?: string;
   role?: RoleType;
   status?: StatusType
-  authorityId?: number;
+  authorityGroup?: AuthorityGroup;
 }
