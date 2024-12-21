@@ -1,7 +1,14 @@
-<header class="w-full bg-white shadow-md p-4 flex justify-between items-center">
-  <div class="text-lg font-semibold text-gray-800"><a [routerLink]="['/home']">Ana Sayfa</a></div>
+<header class="w-full bg-purple-500 shadow-md p-4 flex justify-between items-center">
+  <!-- Logo / Home Link -->
+  <div class="text-lg font-semibold text-white">
+    <a [routerLink]="['/home']" class="hover:underline">Ana Sayfa</a>
+  </div>
+
+  <!-- User Section -->
   <div class="relative flex items-center space-x-4">
-    <span class="text-gray-600">{{userFullName}} Hoşgeldin!</span>
+    <!-- Welcome Message -->
+    <span class="text-gray-200">{{userFullName}} Hoşgeldin!</span>
+
     <!-- Dropdown Trigger -->
     <div
       class="w-8 h-8 rounded-full bg-orange-400 text-white flex items-center justify-center cursor-pointer"

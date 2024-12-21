@@ -1,40 +1,75 @@
-<div class="p-8">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8">
   <!-- Header -->
   <h1 class="text-2xl font-bold mb-4">Yetki Grupları Yönetimi</h1>
-  <div class="overflow-x-auto">
-    <table class="w-full border-collapse border border-gray-300">
-      <thead>
-      <tr class="bg-gray-100">
-        <th class="border border-gray-300 px-4 py-2 text-left">ID</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Yetki Grubu İsmi</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">İşlem</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr
-        *ngFor="let authority of authorities"
-        class="bg-white border-b hover:bg-gray-50 cursor-pointer"
-        (click)="navigateToDetails(authority.id)"
-      >
 
-      <td class="border border-gray-300 px-4 py-2">{{ authority.id }}</td>
-        <td class="border border-gray-300 px-4 py-2">{{ authority.name }}</td>
-        <td class="border border-gray-300 px-4 py-2">
-          <button
-            (click)="handleAddRemoveUsers(authority.id); $event.stopPropagation()"
-            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Kullanıcı Ekle/Çıkar
-          </button>
-          <button
-            (click)="handleEditPermissions(authority.id); $event.stopPropagation()"
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 ml-2"
-          >
-            Yetkileri Düzenle
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Table -->
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="px-6 py-3">ID</th>
+      <th scope="col" class="px-6 py-3">Yetki Grubu İsmi</th>
+      <th scope="col" class="px-6 py-3">
+        <span class="sr-only">İşlem</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let authority of paginatedAuthorities; let i = index"
+      class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+    >
+      <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {{ (currentPage - 1) * itemsPerPage + i + 1 }}
+      </td>
+      <td class="px-6 py-4">
+        {{ authority.name }}
+      </td>
+      <td class="px-6 py-4 text-right">
+        <button
+          (click)="navigateToDetails(authority.id); $event.stopPropagation()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Düzenle
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav class="mt-4 flex justify-center">
+    <ul class="inline-flex space-x-2">
+      <li>
+        <button
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Önceki
+        </button>
+      </li>
+      <li
+        *ngFor="let page of pages; let i = index"
+        class="text-sm"
+      >
+        <button
+          (click)="goToPage(i + 1)"
+          [class.bg-purple-700]="currentPage === i + 1"
+          [class.text-white]="currentPage === i + 1"
+          class="focus:outline-none text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Sonraki
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>
