@@ -1,0 +1,168 @@
+<div class="p-8">
+  <!-- Authority Group Details -->
+  <h1 class="text-2xl font-bold mb-4">Yetki Grubu Detayları</h1>
+  <div *ngIf="authorityDetails">
+    <p><strong>ID:</strong> {{ authorityDetails.id }}</p>
+    <p><strong>Yetki Grubu İsmi:</strong> {{ authorityDetails.name }}</p>
+  </div>
+
+  <!-- First Table: Users in Authority Group -->
+  <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubundaki Kullanıcılar</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2">ID</th>
+        <th class="border border-gray-300 px-4 py-2">Kullanıcı Adı</th>
+        <th class="border border-gray-300 px-4 py-2">E-posta</th>
+        <th class="border border-gray-300 px-4 py-2">Kullanıcı Tipi</th>
+        <th class="border border-gray-300 px-4 py-2">Durum</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let user of paginatedUsers"
+        class="bg-white border-b"
+      >
+        <td class="border border-gray-300 px-4 py-2">{{ user.id }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ user.firstName }} {{ user.lastName }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.userType }}</td>
+        <td
+          class="border border-gray-300 px-4 py-2"
+          [class.text-green-500]="user.status"
+          [class.text-red-500]="!user.status"
+        >
+          {{ user.status ? 'Aktif' : 'Pasif' }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination for Users -->
+  <nav aria-label="Pagination for Users" class="mt-4">
+    <ul class="inline-flex -space-x-px text-base">
+      <li>
+        <button
+          [disabled]="currentPageUsers === 1"
+          (click)="previousPage('users')"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Previous
+        </button>
+      </li>
+      <li
+        *ngFor="let page of pagesUsers; let i = index"
+        [class]="currentPageUsers === i + 1 ? 'bg-blue-500 text-white' : ''"
+      >
+        <button
+          (click)="goToPage('users', i + 1)"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPageUsers === totalPagesUsers"
+          (click)="nextPage('users')"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Second Table: Permissions in Authority Group -->
+  <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubu İzinleri</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2">Ekran İsmi</th>
+        <th class="border border-gray-300 px-4 py-2">Okuma</th>
+        <th class="border border-gray-300 px-4 py-2">Yazma</th>
+        <th class="border border-gray-300 px-4 py-2">Güncelleme</th>
+        <th class="border border-gray-300 px-4 py-2">Silme</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let permission of paginatedPermissions"
+        class="bg-white border-b"
+      >
+        <td class="border border-gray-300 px-4 py-2">
+          {{ permission.screen.name }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.read"
+            (change)="togglePermission(permission, 'read')"
+          />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.create"
+            (change)="togglePermission(permission, 'create')"
+          />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.update"
+            (change)="togglePermission(permission, 'update')"
+          />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.delete"
+            (change)="togglePermission(permission, 'delete')"
+          />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination for Permissions -->
+  <nav aria-label="Pagination for Permissions" class="mt-4">
+    <ul class="inline-flex -space-x-px text-base">
+      <li>
+        <button
+          [disabled]="currentPagePermissions === 1"
+          (click)="previousPage('permissions')"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Previous
+        </button>
+      </li>
+      <li
+        *ngFor="let page of pagesPermissions; let i = index"
+        [class]="currentPagePermissions === i + 1 ? 'bg-blue-500 text-white' : ''"
+      >
+        <button
+          (click)="goToPage('permissions', i + 1)"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPagePermissions === totalPagesPermissions"
+          (click)="nextPage('permissions')"
+          class="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

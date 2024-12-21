@@ -16,4 +16,9 @@ export class UserService {
   createUser(user: UserCreateRequest): Observable<User> {
     return this.httpClient.post<User>(`${this.userUrl}` + '/create', user);
   }
+
+  getUsersByAuthorityGroup(authorityId: number) {
+    return this.httpClient.get<User[]>(this.userUrl + `/${authorityId}/users`);
+
+  }
 }

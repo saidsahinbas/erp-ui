@@ -1,77 +1,82 @@
 <div class="max-w-7xl mx-auto py-10">
-  <div class="flex justify-between mb-8">
-    <h1 class="text-3xl font-semibold text-gray-800">Yetkilendirme Yönetimi</h1>
+  <h1 class="text-3xl font-semibold text-gray-800 mb-6">Yetkilendirme Yönetimi</h1>
+
+  <form class="space-y-6" (ngSubmit)="handleSave()">
     <div>
-      <label class="text-gray-700 font-semibold">Mevcut Yetki Grupları</label>
-      <div class="mt-2 space-y-2">
-        <button class="w-full bg-blue-500 text-white px-4 py-2 rounded-md">Yetki Grubu 1</button>
-        <button class="w-full bg-blue-500 text-white px-4 py-2 rounded-md">Yetki Grubu 2</button>
-        <button class="w-full bg-blue-500 text-white px-4 py-2 rounded-md">Yetki Grubu 3</button>
-      </div>
+      <label class="block text-gray-700 font-medium mb-2">Yetki Grubu Adı:</label>
+      <input
+        type="text"
+        [(ngModel)]="authorityCreate.groupName"
+        name="groupName"
+        class="w-full border-2 border-gray-300 rounded-md px-4 py-2"
+        placeholder="Yetki Grubu Adı Girin"
+        required
+      />
     </div>
-  </div>
 
-  <form class="space-y-6">
-    <div class="flex space-x-4">
-      <!-- Left section (Form) -->
-      <div class="flex-1 space-y-4">
-        <div>
-          <label class="block text-gray-700 font-medium">Yetki Grubu Adı:</label>
-          <input type="text" class="w-full border-2 border-gray-300 rounded-md px-4 py-2" placeholder="Yetki Grubu Adı Girin" />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-medium">Kullanıcı:</label>
-          <select class="w-full border-2 border-gray-300 rounded-md px-4 py-2">
-            <option>Kullanıcı Seçin</option>
-            <option>Test Kullanıcı 1</option>
-            <option>Test Kullanıcı 2</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Right section (Table) -->
-      <div class="flex-1">
-        <table class="min-w-full border-separate border-spacing-0">
-          <thead>
+    <div>
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Ekranlar ve İzinler</h2>
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th class="bg-blue-100 text-left px-4 py-2">Modül/Ekran Adı</th>
-            <th class="bg-blue-100 text-left px-4 py-2">Okuma</th>
-            <th class="bg-blue-100 text-left px-4 py-2">Yazma</th>
-            <th class="bg-blue-100 text-left px-4 py-2">Güncelleme</th>
-            <th class="bg-blue-100 text-left px-4 py-2">Silme</th>
+            <th class="px-6 py-3">Modül/Ekran Adı</th>
+            <th class="px-6 py-3">Okuma</th>
+            <th class="px-6 py-3">Yazma</th>
+            <th class="px-6 py-3">Güncelleme</th>
+            <th class="px-6 py-3">Silme</th>
           </tr>
           </thead>
           <tbody>
-          <tr class="bg-white border-b">
-            <td class="px-4 py-2 font-medium text-blue-600">Ürün-Stok Yönetimi</td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-          </tr>
-          <tr class="bg-white border-b">
-            <td class="px-4 py-2">Ürün Ekleme Ekranı</td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-          </tr>
-          <tr class="bg-white">
-            <td class="px-4 py-2">Ürün Listeleme Ekranı</td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
-            <td class="px-4 py-2"><input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" /></td>
+          <tr
+            *ngFor="let permission of authorityCreate.rolePermissionItems; let i = index"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          >
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ screens[i]?.name }}
+            </td>
+            <td class="px-6 py-4">
+              <input
+                type="checkbox"
+                [(ngModel)]="permission.read"
+                name="read-{{ i }}"
+                class="form-checkbox h-5 w-5 text-blue-500"
+              />
+            </td>
+            <td class="px-6 py-4">
+              <input
+                type="checkbox"
+                [(ngModel)]="permission.create"
+                name="create-{{ i }}"
+                class="form-checkbox h-5 w-5 text-blue-500"
+              />
+            </td>
+            <td class="px-6 py-4">
+              <input
+                type="checkbox"
+                [(ngModel)]="permission.update"
+                name="update-{{ i }}"
+                class="form-checkbox h-5 w-5 text-blue-500"
+              />
+            </td>
+            <td class="px-6 py-4">
+              <input
+                type="checkbox"
+                [(ngModel)]="permission.delete"
+                name="delete-{{ i }}"
+                class="form-checkbox h-5 w-5 text-blue-500"
+              />
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Save Button -->
     <div class="flex justify-end mt-6">
-      <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md">Kaydet</button>
+      <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md">
+        Kaydet
+      </button>
     </div>
   </form>
 </div>

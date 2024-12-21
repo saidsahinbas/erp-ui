@@ -1,57 +1,36 @@
 <div class="p-8">
   <!-- Header -->
-  <h1 class="text-2xl font-bold mb-4">Kullanıcı Yönetimi</h1>
+  <h1 class="text-2xl font-bold mb-4">Yetki Grupları Yönetimi</h1>
   <div class="overflow-x-auto">
     <table class="w-full border-collapse border border-gray-300">
       <thead>
       <tr class="bg-gray-100">
         <th class="border border-gray-300 px-4 py-2 text-left">ID</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Kullanıcı Adı</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">E-posta</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Rol</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Yetki Grubu</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Durum</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Yetki Grubu İsmi</th>
         <th class="border border-gray-300 px-4 py-2 text-left">İşlem</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">1</td>
-        <td class="border border-gray-300 px-4 py-2">Ali Veli</td>
-        <td class="border border-gray-300 px-4 py-2">ali@example.com</td>
-        <td class="border border-gray-300 px-4 py-2">Admin</td>
-        <td class="border border-gray-300 px-4 py-2">Yetki Grubu 1</td>
-        <td class="border border-gray-300 px-4 py-2 text-green-500">Aktif</td>
+      <tr
+        *ngFor="let authority of authorities"
+        class="bg-white border-b hover:bg-gray-50 cursor-pointer"
+        (click)="navigateToDetails(authority.id)"
+      >
+
+      <td class="border border-gray-300 px-4 py-2">{{ authority.id }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ authority.name }}</td>
         <td class="border border-gray-300 px-4 py-2">
           <button
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+            (click)="handleAddRemoveUsers(authority.id); $event.stopPropagation()"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
           >
-            Düzenle
+            Kullanıcı Ekle/Çıkar
           </button>
           <button
-            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ml-2"
+            (click)="handleEditPermissions(authority.id); $event.stopPropagation()"
+            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 ml-2"
           >
-            Sil
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">2</td>
-        <td class="border border-gray-300 px-4 py-2">Ayşe Fatma</td>
-        <td class="border border-gray-300 px-4 py-2">ayse@example.com</td>
-        <td class="border border-gray-300 px-4 py-2">Kullanıcı</td>
-        <td class="border border-gray-300 px-4 py-2">Yetki Grubu 2</td>
-        <td class="border border-gray-300 px-4 py-2 text-red-500">Pasif</td>
-        <td class="border border-gray-300 px-4 py-2">
-          <button
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-          >
-            Düzenle
-          </button>
-          <button
-            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ml-2"
-          >
-            Sil
+            Yetkileri Düzenle
           </button>
         </td>
       </tr>
