@@ -3,15 +3,16 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Role} from "../models/user/role";
 import {AuthorityGroup} from "../models/authority/authority-group";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
-  private readonly userUrl = 'http://localhost:8081/api/role';
+  private readonly roleUrl = environment.API_URL + '/role';
   constructor(private http: HttpClient) { }
 
   getAllRole(): Observable<Role[]> {
-    return this.http.get<Role[]>(`${this.userUrl}/all`);
+    return this.http.get<Role[]>(`${this.roleUrl}/all`);
   }
 }

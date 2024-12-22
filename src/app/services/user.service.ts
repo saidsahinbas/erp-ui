@@ -3,13 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../models/user/user";
 import {Observable} from "rxjs";
 import {UserCreateRequest} from "../models/user/user-create-request";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly userUrl = 'http://localhost:8081/api/user';
+  private readonly userUrl = environment.API_URL + '/user';
 
   constructor(private httpClient: HttpClient) { }
 

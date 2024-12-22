@@ -7,38 +7,39 @@ import {AuthorityGroupUpdateRequest} from "../models/authority/authority-group-u
 import {AuthorityGroupRemoveUserRequest} from "../models/authority/authority-group-remove-user-request";
 import {AuthorityGroupAddUserRequest} from "../models/authority/authority-group-add-user-request";
 import {User} from "../models/user/user";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorityService {
 
-  private readonly userUrl = 'http://localhost:8081/api/authority';
+  private readonly authorityUrl = environment.API_URL +  '/authority';
 
   constructor(private httpClient: HttpClient) { }
 
   getAllAuthorities(): Observable<AuthorityGroup[]> {
-    return this.httpClient.get<AuthorityGroup[]>(`${this.userUrl}` + "/all");
+    return this.httpClient.get<AuthorityGroup[]>(`${this.authorityUrl}` + "/all");
   }
 
   createAuthorityGroup(authorityCreateRequest: AuthorityCreateRequest): Observable<AuthorityGroup> {
-    return this.httpClient.post<AuthorityGroup>(`${this.userUrl}` + '/create', authorityCreateRequest);
+    return this.httpClient.post<AuthorityGroup>(`${this.authorityUrl}` + '/create', authorityCreateRequest);
   }
 
   getAuthorityById(id: number): Observable<AuthorityGroup> {
-    return this.httpClient.get<AuthorityGroup>(this.userUrl + `/${id}`);
+    return this.httpClient.get<AuthorityGroup>(this.authorityUrl + `/${id}`);
   }
 
   updateAuthorityGroup(updateRequest: AuthorityGroupUpdateRequest) {
-    return this.httpClient.post<AuthorityGroup>(`${this.userUrl}` + '/update', updateRequest);
+    return this.httpClient.post<AuthorityGroup>(`${this.authorityUrl}` + '/update', updateRequest);
   }
 
   addUserToAuthorityGroup(authorityGroupAddUserRequest: AuthorityGroupAddUserRequest): Observable<User> {
-    return this.httpClient.post<AuthorityGroupAddUserRequest>(`${this.userUrl}/adduser`, authorityGroupAddUserRequest);
+    return this.httpClient.post<AuthorityGroupAddUserRequest>(`${this.authorityUrl}/adduser`, authorityGroupAddUserRequest);
   }
 
   removeUserFromAuthorityGroup(authorityGroupRemoveUserRequest: AuthorityGroupRemoveUserRequest): Observable<User> {
-    return this.httpClient.post<AuthorityGroupRemoveUserRequest>(`${this.userUrl}/removeUser`, authorityGroupRemoveUserRequest);
+    return this.httpClient.post<AuthorityGroupRemoveUserRequest>(`${this.authorityUrl}/removeUser`, authorityGroupRemoveUserRequest);
   }
 
 }
