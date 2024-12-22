@@ -3,6 +3,7 @@ import {AuthorityService} from "../../../services/authority.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {RolePermissionService} from "../../../services/role-permission.service";
+import {AuthorityGroupUpdateRequest} from "../../../models/authority-group-update-request";
 
 @Component({
   selector: 'app-user-authority-detail',
@@ -14,6 +15,13 @@ export class UserAuthorityDetailComponent implements OnInit {
   authorityDetails: any;
   users: any[] = [];
   rolePermissions: any[] = [];
+  allUsers: any[] = [];
+  selectedUsersToAdd: number[] = [];
+  isEditingPermissions: boolean = false;
+
+  showAddUserModal: boolean = false;
+  showRemoveUserModal: boolean = false;
+  userToRemove: any = null;
 
   // Pagination variables for users
   currentPageUsers: number = 1;
@@ -22,7 +30,7 @@ export class UserAuthorityDetailComponent implements OnInit {
   totalPagesUsers: number = 0;
   pagesUsers: number[] = [];
 
-  // Pagination variables for role permissions
+  // Pagination variables for permissions
   currentPagePermissions: number = 1;
   permissionsPerPage: number = 10;
   paginatedPermissions: any[] = [];
@@ -41,6 +49,7 @@ export class UserAuthorityDetailComponent implements OnInit {
     this.loadAuthorityDetails();
     this.loadUsers();
     this.loadRolePermissions();
+    this.loadAllUsers();
   }
 
   loadAuthorityDetails(): void {
@@ -71,6 +80,13 @@ export class UserAuthorityDetailComponent implements OnInit {
         this.paginatePermissions();
       },
       (error) => console.error('Error fetching permissions:', error)
+    );
+  }
+
+  loadAllUsers(): void {
+    this.userService.getAllUsers().subscribe(
+      (res) => (this.allUsers = res),
+      (error) => console.error('Error fetching all users:', error)
     );
   }
 
@@ -114,10 +130,105 @@ export class UserAuthorityDetailComponent implements OnInit {
     }
   }
 
+
+  //TODO gelebilir
   togglePermission(permission: any, type: string): void {
-    permission[type] = !permission[type];
-    console.log(
-      `Permission toggled: ${type} is now ${permission[type]} for screen ${permission.screen.name}`
+    if (this.isEditingPermissions) {
+      permission[type] = !permission[type];
+    }
+  }
+
+  enableEditingPermissions(): void {
+    this.isEditingPermissions = true;
+  }
+
+  savePermissions(): void {
+    const updateRequest: AuthorityGroupUpdateRequest = {
+      id: this.authorityId,
+      groupName: this.authorityDetails.name,
+      rolePermissionItems: this.rolePermissions.map(permission => ({
+        screenId: permission.screen.id,
+        read: permission.read,
+        create: permission.create,
+        update: permission.update,
+        delete: permission.delete
+      }))
+    };
+
+    this.authorityService.updateAuthorityGroup(updateRequest).subscribe(
+      () => {
+        this.isEditingPermissions = false;
+        this.loadRolePermissions();
+        console.log('Permissions saved successfully');
+      },
+      (error) => console.error('Error saving permissions:', error)
     );
+  }
+
+  cancelEditingPermissions(): void {
+    this.isEditingPermissions = false;
+    this.loadRolePermissions();
+  }
+
+  openAddUserModal(): void {
+    this.selectedUsersToAdd = [];
+    this.showAddUserModal = true;
+  }
+
+  addSelectedUsers(): void {
+    const addUserRequest = {
+      id: this.authorityId,
+      userIds: this.selectedUsersToAdd
+    };
+
+    this.authorityService.addUserToAuthorityGroup(addUserRequest).subscribe(
+      () => {
+        this.loadUsers();
+        this.showAddUserModal = false;
+        this.selectedUsersToAdd = [];
+      },
+      (error) => console.error('Error adding users:', error)
+    );
+  }
+
+  confirmRemoveUser(user: any): void {
+    this.userToRemove = user;
+    this.showRemoveUserModal = true;
+  }
+
+  removeUser(): void {
+    if (this.userToRemove) {
+      const removeUserRequest = {
+        id: this.authorityId,
+        userId: this.userToRemove.id
+      };
+
+      this.authorityService.removeUserFromAuthorityGroup(removeUserRequest).subscribe(
+        () => {
+          this.loadUsers();
+          this.showRemoveUserModal = false;
+          this.userToRemove = null;
+        },
+        (error) => console.error('Error removing user:', error)
+      );
+    }
+  }
+
+  closeModal(): void {
+    this.showAddUserModal = false;
+    this.showRemoveUserModal = false;
+    this.userToRemove = null;
+  }
+
+  toggleSelectUser(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      if (!this.selectedUsersToAdd.includes(id)) {
+        this.selectedUsersToAdd.push(id);
+      }
+    } else {
+      this.selectedUsersToAdd = this.selectedUsersToAdd.filter(userId => userId !== id);
+    }
   }
 }

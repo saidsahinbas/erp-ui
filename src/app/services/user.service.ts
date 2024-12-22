@@ -29,4 +29,5 @@ export class UserService {
   deleteUser(userId: number): Observable<string> {
     return this.httpClient.delete<string>(`${this.userUrl}/${userId}/delete`, { responseType: 'text' as 'json' });
   }
+
 }

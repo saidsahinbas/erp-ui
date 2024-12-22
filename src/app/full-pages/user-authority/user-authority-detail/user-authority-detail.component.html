@@ -6,130 +6,198 @@
     <p><strong>Yetki Grubu İsmi:</strong> {{ authorityDetails.name }}</p>
   </div>
 
-  <!-- First Table: Users in Authority Group -->
-  <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubundaki Kullanıcılar</h2>
+  <!-- Kullanıcı Tablosu -->
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubundaki Kullanıcılar</h2>
+    <button
+      class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5"
+      (click)="openAddUserModal()"
+    >
+      Kullanıcı Ekle
+    </button>
+  </div>
   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
     <tr>
-      <th class="px-6 py-3">ID</th>
+      <th class="px-6 py-3">Sıra</th>
       <th class="px-6 py-3">Kullanıcı Adı</th>
       <th class="px-6 py-3">E-posta</th>
-      <th class="px-6 py-3">Kullanıcı Tipi</th>
       <th class="px-6 py-3">Durum</th>
+      <th class="px-6 py-3">İşlem</th>
     </tr>
     </thead>
     <tbody>
     <tr
-      *ngFor="let user of paginatedUsers"
+      *ngFor="let user of paginatedUsers; let i = index"
       class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
     >
       <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        {{ user.id }}
+        {{ i + 1 }}
       </td>
       <td class="px-6 py-4">
         {{ user.firstName }} {{ user.lastName }}
       </td>
       <td class="px-6 py-4">{{ user.email }}</td>
-      <td class="px-6 py-4">{{ user.userType }}</td>
-      <td
-        class="px-6 py-4"
-        [class.text-green-500]="user.status"
-        [class.text-red-500]="!user.status"
-      >
-        {{ user.status ? 'Aktif' : 'Pasif' }}
+      <td class="px-6 py-4">
+        <span
+          [class.text-green-500]="user.status"
+          [class.text-red-500]="!user.status"
+        >
+          {{ user.status ? 'Aktif' : 'Pasif' }}
+        </span>
+      </td>
+      <td class="px-6 py-4">
+        <button
+          class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          (click)="confirmRemoveUser(user)"
+        >
+          Çıkar
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
 
-  <!-- Pagination for Users -->
-  <nav class="mt-4">
-    <ul class="inline-flex space-x-2 text-base">
-      <li>
+  <!-- Kullanıcı Ekleme Modalı -->
+  <div
+    *ngIf="showAddUserModal"
+    class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+      <h2 class="text-xl font-bold mb-4">Kullanıcı Ekle</h2>
+      <div class="overflow-y-auto h-48 mb-4">
+        <ul>
+          <li *ngFor="let user of allUsers">
+            <input
+              type="checkbox"
+              [value]="user.id"
+              (change)="toggleSelectUser(user.id, $event)"
+            />
+            {{ user.firstName }} {{ user.lastName }}
+          </li>
+        </ul>
+      </div>
+      <div class="flex justify-end space-x-4">
         <button
-          [disabled]="currentPageUsers === 1"
-          (click)="previousPage('users')"
-          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          (click)="closeModal()"
         >
-          Previous
+          İptal
         </button>
-      </li>
-      <li
-        *ngFor="let page of pagesUsers; let i = index"
-        class="flex"
-      >
         <button
-          (click)="goToPage('users', i + 1)"
-          [class.bg-purple-700]="currentPageUsers === i + 1"
-          [class.text-white]="currentPageUsers === i + 1"
-          [class.bg-gray-200]="currentPageUsers !== i + 1"
-          [class.text-gray-700]="currentPageUsers !== i + 1"
-          class="focus:outline-none hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2"
+          class="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800"
+          (click)="addSelectedUsers()"
         >
-          {{ i + 1 }}
+          Ekle
         </button>
-      </li>
-      <li>
-        <button
-          [disabled]="currentPageUsers === totalPagesUsers"
-          (click)="nextPage('users')"
-          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Next
-        </button>
-      </li>
-    </ul>
-  </nav>
+      </div>
+    </div>
+  </div>
 
-  <!-- Second Table: Permissions in Authority Group -->
-  <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubu İzinleri</h2>
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-    <tr>
-      <th class="px-6 py-3">Ekran İsmi</th>
-      <th class="px-6 py-3">Okuma</th>
-      <th class="px-6 py-3">Yazma</th>
-      <th class="px-6 py-3">Güncelleme</th>
-      <th class="px-6 py-3">Silme</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr
-      *ngFor="let permission of paginatedPermissions"
-      class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-    >
-      <td class="px-6 py-4">{{ permission.screen.name }}</td>
-      <td class="px-6 py-4">
-        <input
-          type="checkbox"
-          [(ngModel)]="permission.read"
-          (change)="togglePermission(permission, 'read')"
-        />
-      </td>
-      <td class="px-6 py-4">
-        <input
-          type="checkbox"
-          [(ngModel)]="permission.create"
-          (change)="togglePermission(permission, 'create')"
-        />
-      </td>
-      <td class="px-6 py-4">
-        <input
-          type="checkbox"
-          [(ngModel)]="permission.update"
-          (change)="togglePermission(permission, 'update')"
-        />
-      </td>
-      <td class="px-6 py-4">
-        <input
-          type="checkbox"
-          [(ngModel)]="permission.delete"
-          (change)="togglePermission(permission, 'delete')"
-        />
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <!-- Kullanıcı Çıkarma Modalı -->
+  <div
+    *ngIf="showRemoveUserModal"
+    class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+      <h2 class="text-xl font-bold mb-4">Kullanıcıyı Çıkar</h2>
+      <p class="mb-4">
+        {{ userToRemove?.firstName }} {{ userToRemove?.lastName }} kullanıcısını
+        yetki grubundan çıkarmak istediğinize emin misiniz?
+      </p>
+      <div class="flex justify-end space-x-4">
+        <button
+          class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          (click)="closeModal()"
+        >
+          İptal
+        </button>
+        <button
+          class="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800"
+          (click)="removeUser()"
+        >
+          Çıkar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8">
+    <!-- İzin Tablosu -->
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold mt-8 mb-4">Yetki Grubu İzinleri</h2>
+      <div>
+        <button
+          *ngIf="!isEditingPermissions"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          (click)="enableEditingPermissions()"
+        >
+          Düzenle
+        </button>
+        <button
+          *ngIf="isEditingPermissions"
+          class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2"
+          (click)="savePermissions()"
+        >
+          Kaydet
+        </button>
+        <button
+          *ngIf="isEditingPermissions"
+          class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          (click)="cancelEditingPermissions()"
+        >
+          İptal Et
+        </button>
+      </div>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th class="px-6 py-3">Ekran İsmi</th>
+        <th class="px-6 py-3">Okuma</th>
+        <th class="px-6 py-3">Yazma</th>
+        <th class="px-6 py-3">Güncelleme</th>
+        <th class="px-6 py-3">Silme</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let permission of paginatedPermissions"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      >
+        <td class="px-6 py-4">{{ permission.screen.name }}</td>
+        <td class="px-6 py-4">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.read"
+            [disabled]="!isEditingPermissions"
+          />
+        </td>
+        <td class="px-6 py-4">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.create"
+            [disabled]="!isEditingPermissions"
+          />
+        </td>
+        <td class="px-6 py-4">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.update"
+            [disabled]="!isEditingPermissions"
+          />
+        </td>
+        <td class="px-6 py-4">
+          <input
+            type="checkbox"
+            [(ngModel)]="permission.delete"
+            [disabled]="!isEditingPermissions"
+          />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Pagination for Permissions -->
   <nav class="mt-4">
@@ -143,10 +211,7 @@
           Previous
         </button>
       </li>
-      <li
-        *ngFor="let page of pagesPermissions; let i = index"
-        class="flex"
-      >
+      <li *ngFor="let page of pagesPermissions; let i = index">
         <button
           (click)="goToPage('permissions', i + 1)"
           [class.bg-purple-700]="currentPagePermissions === i + 1"
