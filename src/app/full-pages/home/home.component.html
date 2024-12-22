@@ -8,25 +8,25 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('user')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between mb-4">
+      <div *ngIf="hasReadPermission('User Authority Create')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/user-authority-create']" class="flex items-center">
           <div class="w-12 h-12 bg-orange-400 rounded-full flex items-center justify-center text-white text-2xl">💬</div>
           <span class="ml-4 text-gray-700 font-medium">Yetki Yönetimi Oluştur</span>
         </a>
       </div>
-      <div class="flex items-center justify-between mb-4">
+      <div *ngIf="hasReadPermission('User Authority List')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/user-authority-list']" class="flex items-center">
           <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white text-2xl">📋</div>
           <span class="ml-4 text-gray-700 font-medium">Yetki Yönetimi Listele</span>
         </a>
       </div>
-      <div class="flex items-center justify-between mb-4">
+      <div *ngIf="hasReadPermission('Add User')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/add-user']" class="flex items-center">
           <div class="w-12 h-12 bg-violet-400 rounded-full flex items-center justify-center text-white text-2xl">👤</div>
           <span class="ml-4 text-gray-700 font-medium">Kullanıcı Ekle</span>
         </a>
       </div>
-      <div class="flex items-center justify-between">
+      <div *ngIf="hasReadPermission('Manage User')" class="flex items-center justify-between">
         <a [routerLink]="['/manage-user']" class="flex items-center">
           <div class="w-12 h-12 bg-violet-600 rounded-full flex items-center justify-center text-white text-2xl">👥</div>
           <span class="ml-4 text-gray-700 font-medium">Kullanıcıları Düzenle</span>
@@ -44,13 +44,15 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('product')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between mb-4">
+      <!-- Product List -->
+      <div *ngIf="hasReadPermission('Product List')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/products']" class="flex items-center">
           <div class="w-12 h-12 bg-indigo-400 rounded-full flex items-center justify-center text-white text-2xl">📦</div>
           <span class="ml-4 text-gray-700 font-medium">Ürün Listesi</span>
         </a>
       </div>
-      <div class="flex items-center justify-between">
+      <!-- Product Create -->
+      <div *ngIf="hasReadPermission('Product Create')" class="flex items-center justify-between">
         <a [routerLink]="['/products/create']" class="flex items-center">
           <div class="w-12 h-12 bg-green-400 rounded-full flex items-center justify-center text-white text-2xl">➕</div>
           <span class="ml-4 text-gray-700 font-medium">Yeni Ürün Ekle</span>
@@ -58,6 +60,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Stock Operations -->
   <div class="mb-4">
@@ -68,13 +71,15 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('stock')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between mb-4">
+      <!-- Stock Management -->
+      <div *ngIf="hasReadPermission('Stock Management')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/stocks/management']" class="flex items-center">
           <div class="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center text-white text-2xl">📊</div>
           <span class="ml-4 text-gray-700 font-medium">Stok Yönetimi</span>
         </a>
       </div>
-      <div class="flex items-center justify-between">
+      <!-- Stock Create -->
+      <div *ngIf="hasReadPermission('Stock Create')" class="flex items-center justify-between">
         <a [routerLink]="['/stocks/create']" class="flex items-center">
           <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white text-2xl">📝</div>
           <span class="ml-4 text-gray-700 font-medium">Yeni Stok Ekle</span>
@@ -82,6 +87,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Supplier Operations -->
   <div class="mb-4">
@@ -92,13 +98,13 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('supplier')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between mb-4">
+      <div *ngIf="hasReadPermission('Supplier List')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/suppliers']" class="flex items-center">
           <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢</div>
           <span class="ml-4 text-gray-700 font-medium">Tedarikçi Listesi</span>
         </a>
       </div>
-      <div class="flex items-center justify-between">
+      <div *ngIf="hasReadPermission('Supplier Performance')" class="flex items-center justify-between">
         <a [routerLink]="['/suppliers/performance']" class="flex items-center">
           <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈</div>
           <span class="ml-4 text-gray-700 font-medium">Tedarikçi Performansı</span>
@@ -116,13 +122,13 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('purchase')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between mb-4">
+      <div *ngIf="hasReadPermission('Purchase Request Create')" class="flex items-center justify-between mb-4">
         <a [routerLink]="['/purchase/create']" class="flex items-center">
           <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl">🛒</div>
           <span class="ml-4 text-gray-700 font-medium">Satın Alma Talebi</span>
         </a>
       </div>
-      <div class="flex items-center justify-between">
+      <div *ngIf="hasReadPermission('Purchase Request Approval')" class="flex items-center justify-between">
         <a [routerLink]="['/purchase/approval']" class="flex items-center">
           <div class="w-12 h-12 bg-teal-400 rounded-full flex items-center justify-center text-white text-2xl">✅</div>
           <span class="ml-4 text-gray-700 font-medium">Talep Onay</span>
@@ -140,7 +146,7 @@
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
     <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
-      <div class="flex items-center justify-between">
+      <div *ngIf="hasReadPermission('Quality Control Test Results')" class="flex items-center justify-between">
         <a [routerLink]="['/quality']" class="flex items-center">
           <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
           <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol</span>
@@ -148,4 +154,5 @@
       </div>
     </div>
   </div>
+
 </main>
