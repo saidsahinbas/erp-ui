@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
     if (userSession) {
       const parsedSession = JSON.parse(userSession);
       this.permissions = this.mapPermissions(parsedSession.screens);
-      console.log(parsedSession)
     }
   }
 
