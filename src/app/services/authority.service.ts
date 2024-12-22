@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {AuthorityGroup} from "../models/authority-group";
-import {AuthorityCreateRequest} from "../models/authority-create-request";
-import {AuthorityGroupUpdateRequest} from "../models/authority-group-update-request";
-import {AuthorityGroupRemoveUserRequest} from "../models/authority-group-remove-user-request";
-import {AuthorityGroupAddUserRequest} from "../models/authority-group-add-user-request";
-import {User} from "../models/user";
+import {AuthorityGroup} from "../models/authority/authority-group";
+import {AuthorityCreateRequest} from "../models/authority/authority-create-request";
+import {AuthorityGroupUpdateRequest} from "../models/authority/authority-group-update-request";
+import {AuthorityGroupRemoveUserRequest} from "../models/authority/authority-group-remove-user-request";
+import {AuthorityGroupAddUserRequest} from "../models/authority/authority-group-add-user-request";
+import {User} from "../models/user/user";
 
 @Injectable({
   providedIn: 'root'

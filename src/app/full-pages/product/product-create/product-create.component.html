@@ -66,21 +66,30 @@
         </div>
       </div>
 
-      <!-- Dosya ve Görseller Section -->
+      <!-- Görsel Yükleme Section -->
       <div class="bg-gray-100 p-4 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-4">Dosya ve Görseller</h2>
+        <h2 class="text-lg font-semibold mb-4">Görsel Yükleme</h2>
         <div class="space-y-4">
-          <button class="w-full border-dashed border-2 border-gray-400 rounded-lg p-6 text-gray-500 text-center hover:bg-gray-50">
-            Görsel Yükle
-          </button>
-          <button class="w-full border-dashed border-2 border-gray-400 rounded-lg p-6 text-gray-500 text-center hover:bg-gray-50">
-            Dosya Yükle
-          </button>
+          <div>
+            <input type="file" (change)="onFilesSelected($event)" accept="image/*" multiple class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <label class="block text-sm font-medium mb-1">Ürün Görselleri (Maksimum 2):</label>
+          </div>
+          <div *ngIf="base64Images.length > 0">
+            <label class="block text-sm font-medium mb-1">Yüklenen Görseller:</label>
+            <div class="flex space-x-4">
+              <div *ngFor="let image of base64Images; let i = index">
+                <img [src]="image" [alt]="'Görsel ' + (i + 1)" class="w-32 h-32 object-cover rounded-lg">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="errorMessage" class="text-red-500 text-sm mt-2">
+            {{ errorMessage }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Kaydet Button -->
+
+      <!-- Kaydet Button -->
     <div class="mt-6">
       <button class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">
         Ürün Kaydet

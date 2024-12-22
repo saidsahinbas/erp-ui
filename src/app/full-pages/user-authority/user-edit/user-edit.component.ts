@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {User} from "../../../models/user";
+import {User} from "../../../models/user/user";
 import {AuthorityService} from "../../../services/authority.service";
-import {AuthorityGroup} from "../../../models/authority-group";
+import {AuthorityGroup} from "../../../models/authority/authority-group";
 
 @Component({
   selector: 'app-user-edit',

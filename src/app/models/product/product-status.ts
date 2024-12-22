@@ -1,0 +1,8 @@
+export enum ProductStatus {
+  SATISTA,
+  TEDARIK_EDILIYOR,
+  AKTIF,
+  PASIF,
+  ENVANTERE_DAHIL,
+  URETILIYOR
+}

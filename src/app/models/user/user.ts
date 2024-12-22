@@ -1,6 +1,6 @@
 import {RoleType} from './role-type';
 import {StatusType} from './status-type';
-import {AuthorityGroup} from "./authority-group";
+import {AuthorityGroup} from "../authority/authority-group";
 
 export class User {
   id?: number;

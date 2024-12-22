@@ -1,4 +1,4 @@
-import {AuthorityGroup} from "./authority-group";
+import {AuthorityGroup} from "../authority/authority-group";
 import {Screen} from "./screen";
 
 export class RolePermission {

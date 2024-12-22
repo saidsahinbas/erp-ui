@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {RolePermission} from "../models/role-permission";
+import {RolePermission} from "../models/user/role-permission";
 
 @Injectable({
   providedIn: 'root'

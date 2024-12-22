@@ -3,7 +3,7 @@ import {AuthorityService} from "../../../services/authority.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {RolePermissionService} from "../../../services/role-permission.service";
-import {AuthorityGroupUpdateRequest} from "../../../models/authority-group-update-request";
+import {AuthorityGroupUpdateRequest} from "../../../models/authority/authority-group-update-request";
 
 @Component({
   selector: 'app-user-authority-detail',

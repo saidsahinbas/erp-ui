@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {AuthorityService} from "../../../services/authority.service";
 import {Router} from "@angular/router";
-import {UserCreateRequest} from "../../../models/user-create-request";
+import {UserCreateRequest} from "../../../models/user/user-create-request";
 import {RoleService} from "../../../services/role.service";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthorityService} from "../../../services/authority.service";
-import {AuthorityCreateRequest} from "../../../models/authority-create-request";
+import {AuthorityCreateRequest} from "../../../models/authority/authority-create-request";
 import {ScreenService} from "../../../services/screen.service";
 
 @Component({

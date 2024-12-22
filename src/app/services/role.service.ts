@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Role} from "../models/role";
-import {AuthorityGroup} from "../models/authority-group";
+import {Role} from "../models/user/role";
+import {AuthorityGroup} from "../models/authority/authority-group";
 
 @Injectable({
   providedIn: 'root'
