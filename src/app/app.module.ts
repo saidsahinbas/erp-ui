@@ -54,7 +54,7 @@ import { UserAuthorityDetailComponent } from './full-pages/user-authority/user-a
     ProductDetailComponent,
     QualityControlTestResultsComponent,
     UserDetailComponent,
-    UserAuthorityDetailComponent
+    UserAuthorityDetailComponent,
   ],
   imports: [
     BrowserModule,

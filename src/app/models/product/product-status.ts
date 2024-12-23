@@ -1,8 +1,8 @@
 export enum ProductStatus {
-  SATISTA,
-  TEDARIK_EDILIYOR,
-  AKTIF,
-  PASIF,
-  ENVANTERE_DAHIL,
-  URETILIYOR
+  SATISTA= 'Satışta',
+  TEDARIK_EDILIYOR = 'Tedarik Ediliyor',
+  AKTIF = 'Aktif',
+  PASIF = 'Pasif',
+  ENVANTERE_DAHIL = 'Envantere Dahil',
+  URETILIYOR = 'Üretiliyor'
 }

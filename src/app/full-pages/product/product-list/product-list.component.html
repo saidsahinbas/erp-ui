@@ -1,38 +1,13 @@
 <div class="p-6 bg-gray-50 min-h-screen">
   <div class="max-w-7xl mx-auto bg-white shadow rounded-lg p-6">
     <!-- Header -->
-    <h2 class="text-xl font-bold mb-6">Ürün Listeleme</h2>
-
-    <!-- Filter Section -->
-    <div class="grid grid-cols-5 gap-4 mb-6">
-      <input
-        type="text"
-        placeholder="Ürün adı yazın..."
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      />
-      <input
-        type="text"
-        placeholder="Stok kodu yazın..."
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      />
-      <select
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      >
-        <option>Tümü</option>
-        <option>Hammadde</option>
-        <option>Elektronik</option>
-      </select>
-      <select
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      >
-        <option>Tümü</option>
-        <option>Tedarikçi 1</option>
-        <option>Tedarikçi 2</option>
-      </select>
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold">Ürün Listeleme</h2>
       <button
-        class="col-span-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        class="bg-violet-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        [routerLink]="['/products/create']"
       >
-        Filtrele
+        Yeni Ürün Ekle
       </button>
     </div>
 
@@ -41,41 +16,87 @@
       <table class="min-w-full bg-white border rounded-lg">
         <thead>
         <tr class="bg-gray-100 text-gray-700">
+          <th class="px-4 py-2 text-left border-b">#</th>
           <th class="px-4 py-2 text-left border-b">Ürün Adı</th>
           <th class="px-4 py-2 text-left border-b">Stok Kodu</th>
           <th class="px-4 py-2 text-left border-b">Alış Fiyatı</th>
           <th class="px-4 py-2 text-left border-b">Satış Fiyatı</th>
           <th class="px-4 py-2 text-left border-b">Kategori</th>
           <th class="px-4 py-2 text-left border-b">Tedarikçi</th>
+          <th class="px-4 py-2 text-left border-b">Durumu</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="text-gray-700">
-          <td class="px-4 py-2 border-b">Kamera Lens</td>
-          <td class="px-4 py-2 border-b">HMM.1</td>
-          <td class="px-4 py-2 border-b">100</td>
-          <td class="px-4 py-2 border-b">150</td>
-          <td class="px-4 py-2 border-b">HMM</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 1</td>
+        <tr
+          class="text-gray-700 hover:bg-gray-100 transition duration-200 ease-in-out"
+          *ngFor="let product of paginatedProducts; let i = index"
+        >
+          <td class="px-4 py-2 border-b">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+          <td class="px-4 py-2 border-b">
+            <a
+              [routerLink]="['/products', product.id]"
+              class="text-blue-500 hover:underline"
+            >
+              {{ product.productName }}
+            </a>
+          </td>
+          <td class="px-4 py-2 border-b">{{ product.code }}</td>
+          <td class="px-4 py-2 border-b">{{ product.purchasePrice | currency: 'TRY' }}</td>
+          <td class="px-4 py-2 border-b">{{ product.salePrice | currency: 'TRY' }}</td>
+          <td class="px-4 py-2 border-b">{{ product.categoryName }}</td>
+          <td class="px-4 py-2 border-b">
+            <ul>
+              <li *ngFor="let supplier of product.supplierNames">{{ supplier }}</li>
+            </ul>
+          </td>
+          <td class="px-4 py-2 border-b">
+            <ul>
+              <li *ngFor="let status of product.productStatuses">{{ status }}</li>
+            </ul>
+          </td>
         </tr>
-        <tr class="text-gray-700">
-          <td class="px-4 py-2 border-b">Elektronik Devre</td>
-          <td class="px-4 py-2 border-b">HMM.2</td>
-          <td class="px-4 py-2 border-b">200</td>
-          <td class="px-4 py-2 border-b">300</td>
-          <td class="px-4 py-2 border-b">HMM</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 2</td>
-        </tr>
-        <tr class="text-gray-700">
-          <td class="px-4 py-2 border-b">Plastik Gövde</td>
-          <td class="px-4 py-2 border-b">YM.1</td>
-          <td class="px-4 py-2 border-b">50</td>
-          <td class="px-4 py-2 border-b">80</td>
-          <td class="px-4 py-2 border-b">YM</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 3</td>
+        <tr *ngIf="paginatedProducts.length === 0" class="text-center text-gray-500">
+          <td colspan="8" class="py-4">Hiç ürün bulunamadı.</td>
         </tr>
         </tbody>
       </table>
     </div>
+
+    <nav class="mt-4 flex justify-center">
+      <ul class="inline-flex space-x-2">
+        <li>
+          <button
+            [disabled]="currentPage === 1"
+            (click)="previousPage()"
+            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+          >
+            Önceki
+          </button>
+        </li>
+        <li
+          *ngFor="let page of pages; let i = index"
+          class="text-sm"
+        >
+          <button
+            (click)="goToPage(i + 1)"
+            [class.bg-purple-700]="currentPage === i + 1"
+            [class.text-white]="currentPage === i + 1"
+            class="focus:outline-none text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg"
+          >
+            {{ i + 1 }}
+          </button>
+        </li>
+        <li>
+          <button
+            [disabled]="currentPage === totalPages"
+            (click)="nextPage()"
+            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+          >
+            Sonraki
+          </button>
+        </li>
+      </ul>
+    </nav>
+
   </div>
 </div>

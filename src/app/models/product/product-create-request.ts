@@ -10,5 +10,5 @@ export class ProductCreateRequest {
   supplierId: number[];
   image1: string;
   image2: string;
-  productStatuses: ProductStatus[];
+  productStatuses: string[];
 }
