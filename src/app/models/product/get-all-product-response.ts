@@ -8,4 +8,5 @@ export class GetAllProductResponse {
   categoryName: string; // Name of the category
   productStatuses: string[]; // List of product statuses
   supplierNames: string[]; // List of supplier names
+  selectedSupplier?: any;
 }

@@ -109,8 +109,8 @@ export class ProductCreateComponent implements OnInit {
     const conflicts: Record<ProductStatus, ProductStatus[]> = {
       [ProductStatus.AKTIF]: [ProductStatus.PASIF],
       [ProductStatus.PASIF]: [ProductStatus.AKTIF],
-      [ProductStatus.ENVANTERE_DAHIL]: [ProductStatus.TEDARIK_EDILIYOR],
-      [ProductStatus.TEDARIK_EDILIYOR]: [ProductStatus.ENVANTERE_DAHIL],
+      [ProductStatus.ENVANTERE_DAHIL]: [],
+      [ProductStatus.TEDARIK_EDILIYOR] : [],
       [ProductStatus.SATISTA]: [],
       [ProductStatus.URETILIYOR]: [],
     };
