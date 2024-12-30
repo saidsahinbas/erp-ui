@@ -28,6 +28,7 @@ import {UserDetailComponent} from "./full-pages/user-authority/user-detail/user-
 import {
   UserAuthorityDetailComponent
 } from "./full-pages/user-authority/user-authority-detail/user-authority-detail.component";
+import {QualityParameterComponent} from "./full-pages/quality-control/quality-parameter/quality-parameter.component";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -64,7 +65,13 @@ export const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
-  { path: 'quality', component: QualityControlTestResultsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'quality',
+    children: [
+      { path: 'results', component: QualityControlTestResultsComponent, canActivate: [AuthGuard] },
+      { path: 'create', component: QualityParameterComponent, canActivate: [AuthGuard] },
+    ]
+  },
   { path: 'add-user', component: UserCreateComponent, canActivate: [AuthGuard] },
   { path: 'manage-user', component: UserEditComponent, canActivate: [AuthGuard] },
   { path: 'user-authority-create', component: UserAuthorityCreateComponent, canActivate: [AuthGuard] },

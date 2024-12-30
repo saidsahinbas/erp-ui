@@ -5,21 +5,16 @@
     <div class="bg-white p-6 rounded-lg shadow-md">
       <h3 class="font-semibold text-lg mb-4">Durum</h3>
       <ul class="space-y-3">
-        <li>
-          <input type="checkbox" id="aktif" class="mr-2" />
-          <label for="aktif" class="text-gray-700">Aktif</label>
-        </li>
-        <li>
-          <input type="checkbox" id="musteri" class="mr-2" />
-          <label for="musteri" class="text-gray-700">Müşteri</label>
-        </li>
-        <li>
-          <input type="checkbox" id="tedarikci" class="mr-2" />
-          <label for="tedarikci" class="text-gray-700">Tedarikçi</label>
-        </li>
-        <li>
-          <input type="checkbox" id="potansiyel" class="mr-2" />
-          <label for="potansiyel" class="text-gray-700">Potansiyel</label>
+        <li *ngFor="let status of supplierStatuses">
+          <input
+            type="radio"
+            id="{{ status }}"
+            name="status"
+            [(ngModel)]="supplier.status"
+            [value]="status"
+            class="mr-2"
+          />
+          <label [for]="status" class="text-gray-700">{{ status }}</label>
         </li>
       </ul>
     </div>
@@ -29,56 +24,13 @@
       <h3 class="font-semibold text-lg mb-4">Tedarikçi Bilgileri</h3>
       <form class="space-y-4">
         <div>
-          <label for="unvan" class="block mb-1 text-sm font-medium text-gray-700">Ünvan:</label>
+          <label for="name" class="block mb-1 text-sm font-medium text-gray-700">Adı:</label>
           <input
             type="text"
-            id="unvan"
+            id="name"
+            name="name"
+            [(ngModel)]="supplier.name"
             placeholder="Tedarikçi unvanı girin"
-            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label for="kisa-ad" class="block mb-1 text-sm font-medium text-gray-700">Kısa Ad:</label>
-          <input
-            type="text"
-            id="kisa-ad"
-            placeholder="Kısa ad girin"
-            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label for="kategori" class="block mb-1 text-sm font-medium text-gray-700">Kategori:</label>
-          <input
-            type="text"
-            id="kategori"
-            placeholder="Kategori girin"
-            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label for="sektor" class="block mb-1 text-sm font-medium text-gray-700">Sektör:</label>
-          <input
-            type="text"
-            id="sektor"
-            placeholder="Sektör girin"
-            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label for="ulke" class="block mb-1 text-sm font-medium text-gray-700">Ülke:</label>
-          <input
-            type="text"
-            id="ulke"
-            placeholder="Ülke girin"
-            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div>
-          <label for="sehir" class="block mb-1 text-sm font-medium text-gray-700">Şehir:</label>
-          <input
-            type="text"
-            id="sehir"
-            placeholder="Şehir girin"
             class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           />
         </div>
@@ -87,18 +39,47 @@
           <input
             type="email"
             id="email"
+            name="email"
+            [(ngModel)]="supplier.email"
             placeholder="E-mail girin"
             class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           />
         </div>
         <div>
-          <label for="telefon" class="block mb-1 text-sm font-medium text-gray-700">Telefon:</label>
+          <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">Telefon:</label>
           <input
             type="tel"
-            id="telefon"
+            id="phone"
+            name="phone"
+            [(ngModel)]="supplier.phone"
             placeholder="Telefon girin"
             class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           />
+        </div>
+        <div>
+          <label for="country" class="block mb-1 text-sm font-medium text-gray-700">Ülke:</label>
+          <select
+            id="country"
+            name="country"
+            [(ngModel)]="supplier.country"
+            (change)="getAllCitiesByCountryId(supplier.country.id)"
+            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+          >
+            <option value="" disabled selected>Bir ülke seçin</option>
+            <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="city" class="block mb-1 text-sm font-medium text-gray-700">Şehir:</label>
+          <select
+            id="city"
+            name="city"
+            [(ngModel)]="supplier.city"
+            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+          >
+            <option value="" disabled selected>Bir şehir seçin</option>
+            <option *ngFor="let city of cities" [ngValue]="city">{{ city.name }}</option>
+          </select>
         </div>
       </form>
     </div>
@@ -107,15 +88,50 @@
     <div class="bg-white p-6 rounded-lg shadow-md">
       <h3 class="font-semibold text-lg mb-4">Ek Alanlar</h3>
       <div class="space-y-4">
-        <div class="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-          <button class="text-blue-500 font-medium">Belgeler Yükle</button>
+        <div>
+          <label for="document-upload" class="block mb-1 text-sm font-medium text-gray-700">
+            Belgeler Yükle:
+          </label>
+          <input
+            type="file"
+            id="document-upload"
+            (change)="onFileSelected($event)"
+            multiple
+            class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+          />
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-2">Yüklenen Belgeler:</h4>
+          <ul class="space-y-2">
+            <li *ngFor="let doc of uploadedDocuments; let i = index" class="flex items-center justify-between">
+              <span>{{ doc.name }}</span>
+              <button
+                type="button"
+                (click)="removeDocument(i)"
+                class="text-red-500 hover:text-red-700 font-medium"
+              >
+                Sil
+              </button>
+            </li>
+          </ul>
         </div>
         <div>
           <textarea
             placeholder="Notlar ekleyin..."
             rows="5"
+            name="note"
+            [(ngModel)]="supplier.note"
             class="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           ></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="button"
+            (click)="createSupplier()"
+            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+          >
+            Kaydet
+          </button>
         </div>
       </div>
     </div>

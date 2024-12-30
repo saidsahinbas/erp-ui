@@ -35,6 +35,30 @@
     </div>
   </div>
 
+  <!-- Supplier Operations -->
+  <div class="mb-4">
+    <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"
+            type="button"
+            (click)="toggleDropdown('supplier')">
+      <span class="text-lg font-medium text-gray-800">Tedarikçi İşlemleri</span>
+      <span>&#9660;</span> <!-- Down Arrow Icon -->
+    </button>
+    <div *ngIf="isDropdownOpen('supplier')" class="bg-white shadow rounded p-4">
+      <div *ngIf="hasReadPermission('Supplier List')" class="flex items-center justify-between mb-4">
+        <a [routerLink]="['/suppliers']" class="flex items-center">
+          <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢</div>
+          <span class="ml-4 text-gray-700 font-medium">Tedarikçi Listesi</span>
+        </a>
+      </div>
+      <div *ngIf="hasReadPermission('Supplier Performance')" class="flex items-center justify-between">
+        <a [routerLink]="['/suppliers/performance']" class="flex items-center">
+          <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈</div>
+          <span class="ml-4 text-gray-700 font-medium">Tedarikçi Performansı</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Product Operations -->
   <div class="mb-4">
     <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"
@@ -88,31 +112,6 @@
     </div>
   </div>
 
-
-  <!-- Supplier Operations -->
-  <div class="mb-4">
-    <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"
-            type="button"
-            (click)="toggleDropdown('supplier')">
-      <span class="text-lg font-medium text-gray-800">Tedarikçi İşlemleri</span>
-      <span>&#9660;</span> <!-- Down Arrow Icon -->
-    </button>
-    <div *ngIf="isDropdownOpen('supplier')" class="bg-white shadow rounded p-4">
-      <div *ngIf="hasReadPermission('Supplier List')" class="flex items-center justify-between mb-4">
-        <a [routerLink]="['/suppliers']" class="flex items-center">
-          <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢</div>
-          <span class="ml-4 text-gray-700 font-medium">Tedarikçi Listesi</span>
-        </a>
-      </div>
-      <div *ngIf="hasReadPermission('Supplier Performance')" class="flex items-center justify-between">
-        <a [routerLink]="['/suppliers/performance']" class="flex items-center">
-          <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈</div>
-          <span class="ml-4 text-gray-700 font-medium">Tedarikçi Performansı</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
   <!-- Purchasing Operations -->
   <div class="mb-4">
     <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"
@@ -147,12 +146,21 @@
     </button>
     <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
       <div *ngIf="hasReadPermission('Quality Control Test Results')" class="flex items-center justify-between">
-        <a [routerLink]="['/quality']" class="flex items-center">
+        <a [routerLink]="['/quality/create']" class="flex items-center">
           <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
-          <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol</span>
+          <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol Listesi</span>
         </a>
       </div>
     </div>
+    <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
+      <div *ngIf="hasReadPermission('Quality Control Test Results')" class="flex items-center justify-between">
+        <a [routerLink]="['/quality/results']" class="flex items-center">
+          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
+          <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol Sonuçları</span>
+        </a>
+      </div>
+    </div>
+
   </div>
 
 </main>

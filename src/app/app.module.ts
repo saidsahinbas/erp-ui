@@ -31,6 +31,7 @@ import { ProductDetailComponent } from './full-pages/product/product-detail/prod
 import { QualityControlTestResultsComponent } from './full-pages/quality-control/quality-control-test-results/quality-control-test-results.component';
 import { UserDetailComponent } from './full-pages/user-authority/user-detail/user-detail.component';
 import { UserAuthorityDetailComponent } from './full-pages/user-authority/user-authority-detail/user-authority-detail.component';
+import { QualityParameterComponent } from './full-pages/quality-control/quality-parameter/quality-parameter.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { UserAuthorityDetailComponent } from './full-pages/user-authority/user-a
     QualityControlTestResultsComponent,
     UserDetailComponent,
     UserAuthorityDetailComponent,
+    QualityParameterComponent,
   ],
   imports: [
     BrowserModule,

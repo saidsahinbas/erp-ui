@@ -1,0 +1,106 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="w-full max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-bold text-center mb-6">Kalite Tanımları</h2>
+
+    <!-- Add/Edit Parameter Form -->
+    <div class="mb-8 p-4 border rounded-lg bg-gray-100">
+      <h3 class="text-lg font-bold mb-4">{{ editingParameter ? 'Parametreyi Düzenle' : 'Yeni Parametre Ekle' }}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <input
+          type="text"
+          [(ngModel)]="newParameter.name"
+          placeholder="Parametre Adı"
+          class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+        />
+        <input
+          type="text"
+          [(ngModel)]="newParameter.description"
+          placeholder="Açıklama"
+          class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+        />
+        <select
+          [(ngModel)]="newParameter.valueType"
+          class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          (change)="updateValueFields()"
+        >
+          <option value="" disabled selected>Bir Tip Seçin...</option>
+          <option *ngFor="let type of ['NUMBER', 'RANGE', 'STRING']" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4">
+        <input
+          *ngIf="newParameter.valueType === 'NUMBER' || newParameter.valueType === 'STRING'"
+          [(ngModel)]="newParameter.defaultValue"
+          type="text"
+          placeholder="Varsayılan Değer"
+          class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+        />
+        <div *ngIf="newParameter.valueType === 'RANGE'" class="grid grid-cols-2 gap-4">
+          <input
+            [(ngModel)]="newParameter.minValue"
+            type="text"
+            placeholder="Min Değer"
+            class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          />
+          <input
+            [(ngModel)]="newParameter.maxValue"
+            type="text"
+            placeholder="Max Değer"
+            class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <button
+        class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition w-full md:w-auto mt-4"
+        (click)="addParameter()"
+      >
+        {{ editingParameter ? 'Güncelle' : 'Ekle' }}
+      </button>
+    </div>
+
+    <!-- Parameter List -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+        <thead>
+        <tr class="bg-gray-100">
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">Parametre Adı</th>
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">Açıklama</th>
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">Tip</th>
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">Varsayılan</th>
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">Aralık</th>
+          <th class="text-left px-4 py-2 border-b border-gray-200 font-medium text-gray-600">İşlemler</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let parameter of qualityParameters">
+          <td class="px-4 py-2 border-b">{{ parameter.name }}</td>
+          <td class="px-4 py-2 border-b">{{ parameter.description }}</td>
+          <td class="px-4 py-2 border-b">{{ parameter.valueType }}</td>
+          <td class="px-4 py-2 border-b">{{ parameter.defaultValue }}</td>
+          <td class="px-4 py-2 border-b">
+              <span *ngIf="parameter.valueType === 'RANGE'">
+                {{ parameter.minValue }} - {{ parameter.maxValue }}
+              </span>
+          </td>
+          <td class="px-4 py-2 border-b">
+            <button
+              class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition"
+              (click)="editParameter(parameter)"
+            >
+              Düzenle
+            </button>
+            <button
+              class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition ml-2"
+              (click)="deleteParameter(parameter)"
+            >
+              Sil
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
