@@ -1,4 +1,6 @@
 import {ProductStatus} from "./product-status";
+import {Document} from "../document/document";
+import {QualityParameter} from "../quality-parameter/quality-parameter";
 
 export class ProductCreateRequest {
   name: string;
@@ -11,4 +13,6 @@ export class ProductCreateRequest {
   image1: string;
   image2: string;
   productStatuses: string[];
+  documents: Document[];
+  qualityParameterDtoSet: QualityParameter[];
 }

@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto bg-white shadow rounded-lg p-6">
     <div class="grid grid-cols-3 gap-6">
 
-      <!-- Durum Section -->
+      <!-- Status Section -->
       <div class="bg-gray-100 p-4 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-4">Durum</h2>
         <div class="space-y-2">
@@ -12,51 +12,75 @@
               [checked]="selectedStatuses.includes(key)"
               (change)="toggleStatus(key)"
               [disabled]="isConflictingStatus(key)"
-              class="rounded text-blue-600 focus:ring-blue-500">
+              class="rounded text-blue-600 focus:ring-blue-500"
+            >
             <span>{{ productStatusLabels[key] }}</span>
           </label>
         </div>
-
-        <!-- Hata Mesajı -->
-        <div *ngIf="errorMessage" class="text-red-500 text-sm mt-2">
-          {{ errorMessage }}
-        </div>
+        <div *ngIf="errorMessage" class="text-red-500 text-sm mt-2">{{ errorMessage }}</div>
       </div>
 
-      <!-- Ürün Bilgileri Section -->
+      <!-- Product Information Section -->
       <div class="bg-gray-100 p-4 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-4">Ürün Bilgileri</h2>
         <div class="space-y-4">
           <div>
             <label class="block text-sm font-medium mb-1">Ürün Adı:</label>
-            <input type="text" [(ngModel)]="productRequest.name" placeholder="Ürün adı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <input
+              type="text"
+              [(ngModel)]="productRequest.name"
+              placeholder="Ürün adı girin"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Ürün Kodu:</label>
-            <input type="text" [(ngModel)]="productRequest.code" placeholder="Ürün Kodu girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <input
+              type="text"
+              [(ngModel)]="productRequest.code"
+              placeholder="Ürün Kodu girin"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Kategori:</label>
-            <select [(ngModel)]="productRequest.categoryId" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <select
+              [(ngModel)]="productRequest.categoryId"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
               <option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Alış Fiyatı:</label>
-            <input type="number" [(ngModel)]="productRequest.purchasePrice" placeholder="Alış fiyatı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <input
+              type="number"
+              [(ngModel)]="productRequest.purchasePrice"
+              placeholder="Alış fiyatı girin"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Satış Fiyatı:</label>
-            <input type="number" [(ngModel)]="productRequest.salePrice" placeholder="Satış fiyatı girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <input
+              type="number"
+              [(ngModel)]="productRequest.salePrice"
+              placeholder="Satış fiyatı girin"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Açıklama:</label>
-            <textarea [(ngModel)]="productRequest.description" placeholder="Açıklama girin" class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            <textarea
+              [(ngModel)]="productRequest.description"
+              placeholder="Açıklama girin"
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            ></textarea>
           </div>
         </div>
       </div>
 
-      <!-- Tedarikçi Seç Section -->
+      <!-- Supplier Selection Section -->
       <div class="bg-gray-100 p-4 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-4">Tedarikçiler</h2>
         <button
@@ -65,19 +89,55 @@
         >
           Tedarikçi Seç
         </button>
-
         <div *ngIf="selectedSupplierNames.length > 0" class="mt-4">
           <label class="block text-sm font-medium mb-1">Seçili Tedarikçiler:</label>
           <p class="text-gray-700">{{ selectedSupplierNames.join(', ') }}</p>
         </div>
       </div>
 
-      <!-- Görsel Yükleme Section -->
+      <!-- Document Upload Section -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Belge Yükleme</h2>
+        <div class="space-y-4">
+          <div>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              accept=".pdf,.doc,.docx,image/*"
+              multiple
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
+            <label class="block text-sm font-medium mb-1">Belgeler:</label>
+          </div>
+          <div *ngIf="uploadedDocuments.length > 0">
+            <label class="block text-sm font-medium mb-1">Yüklenen Belgeler:</label>
+            <ul class="list-disc list-inside text-gray-700">
+              <li *ngFor="let doc of uploadedDocuments; let i = index">
+                {{ doc.name }}
+                <button
+                  (click)="removeDocument(i)"
+                  class="text-red-500 hover:text-red-700 ml-2"
+                >
+                  Sil
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Upload Section -->
       <div class="bg-gray-100 p-4 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-4">Görsel Yükleme</h2>
         <div class="space-y-4">
           <div>
-            <input type="file" (change)="onFilesSelected($event)" accept="image/*" multiple class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500">
+            <input
+              type="file"
+              (change)="onFilesSelected($event)"
+              accept="image/*"
+              multiple
+              class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
             <label class="block text-sm font-medium mb-1">Ürün Görselleri (Maksimum 2):</label>
           </div>
           <div *ngIf="base64Images.length > 0">
@@ -91,18 +151,46 @@
         </div>
       </div>
 
-      <!-- Kaydet Button -->
+      <!-- Quality Parameters Section -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Kalite Parametreleri</h2>
+        <button
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+          (click)="openQualityParameterModal()"
+        >
+          Kalite Parametrelerini Seç
+        </button>
+        <div *ngIf="selectedQualityParameters.length > 0" class="mt-4">
+          <label class="block text-sm font-medium mb-1">Seçili Kalite Parametreleri:</label>
+          <ul class="list-disc list-inside text-gray-700">
+            <li *ngFor="let parameter of selectedQualityParameters">
+              {{ parameter.name }} -
+              <span *ngIf="parameter.valueType === 'RANGE'">
+        {{ parameter.minValue }} - {{ parameter.maxValue }}
+      </span>
+              <span *ngIf="parameter.valueType !== 'RANGE'">
+        Varsayılan: {{ parameter.defaultValue }}
+      </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Save Button -->
       <div class="mt-6">
-        <button (click)="saveProduct()" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">
+        <button
+          (click)="saveProduct()"
+          class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600"
+        >
           Ürün Kaydet
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Supplier Modal -->
   <div
-    *ngIf="showModal"
+    *ngIf="showSupplierModal"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
   >
     <div class="bg-white rounded-lg p-6 w-1/2">
@@ -117,7 +205,7 @@
                 [checked]="selectedSupplierIds.includes(supplier.id)"
                 (change)="onSupplierChange($event, supplier.id)"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
+              >
               <label
                 [for]="'supplier-checkbox-' + supplier.id"
                 class="ml-2 text-gray-900"
@@ -138,6 +226,159 @@
         <button
           class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
           (click)="saveSelectedSuppliers()"
+        >
+          Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quality Parameters Modal -->
+  <div
+    *ngIf="showQualityParametersModal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+  >
+    <div class="bg-white rounded-lg p-6 w-2/3">
+      <h3 class="text-lg font-semibold mb-4">Kalite Parametreleri</h3>
+      <div class="max-h-96 overflow-y-auto">
+        <table class="min-w-full border border-gray-200 rounded-lg">
+          <thead class="bg-gray-100">
+          <tr>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Seç
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Adı
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Açıklama
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Değer Tipi
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Varsayılan
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              Aralık
+            </th>
+            <th class="text-left px-4 py-2 border-b font-medium text-gray-600">
+              İşlemler
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let parameter of qualityParameters"
+            class="hover:bg-gray-100"
+          >
+            <td class="px-4 py-2 border-b">
+              <input
+                type="checkbox"
+                [checked]="selectedQualityParameterIds.includes(parameter.id)"
+                (change)="onQualityParameterChange($event, parameter)"
+                class="rounded text-blue-600 focus:ring-blue-500"
+              />
+            </td>
+            <td class="px-4 py-2 border-b">{{ parameter.name }}</td>
+            <td class="px-4 py-2 border-b">{{ parameter.description }}</td>
+            <td class="px-4 py-2 border-b">{{ parameter.valueType }}</td>
+            <td class="px-4 py-2 border-b">{{ parameter.defaultValue }}</td>
+            <td class="px-4 py-2 border-b">
+              <span *ngIf="parameter.valueType === 'RANGE'">
+                {{ parameter.minValue }} - {{ parameter.maxValue }}
+              </span>
+            </td>
+            <td class="px-4 py-2 border-b">
+              <button
+                class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+                (click)="editQualityParameter(parameter)"
+              >
+                Düzenle
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button
+          class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 mr-2"
+          (click)="closeQualityParametersModal()"
+        >
+          Kapat
+        </button>
+        <button
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+          (click)="saveSelectedQualityParameters()"
+        >
+          Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Edit Quality Parameter Modal -->
+  <div
+    *ngIf="showEditQualityParameterModal && editingQualityParameter"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+  >
+    <div class="bg-white rounded-lg p-6 w-1/2">
+      <h3 class="text-lg font-semibold mb-4">Kalite Parametresini Düzenle</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Ad:</label>
+          <input
+            type="text"
+            [(ngModel)]="editingQualityParameter.name"
+            class="w-full border rounded p-2"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Açıklama:</label>
+          <input
+            type="text"
+            [(ngModel)]="editingQualityParameter.description"
+            class="w-full border rounded p-2"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Varsayılan Değer:</label>
+          <input
+            type="text"
+            [(ngModel)]="editingQualityParameter.defaultValue"
+            class="w-full border rounded p-2"
+          />
+        </div>
+        <div *ngIf="editingQualityParameter.valueType === 'RANGE'" class="mt-4">
+          <label class="block text-sm font-medium mb-1">Aralık:</label>
+          <div class="grid grid-cols-2 gap-4">
+            <input
+              type="number"
+              [(ngModel)]="editingQualityParameter.minValue"
+              placeholder="Min Değer"
+              class="w-full border rounded p-2"
+            />
+            <input
+              type="number"
+              [(ngModel)]="editingQualityParameter.maxValue"
+              placeholder="Max Değer"
+              class="w-full border rounded p-2"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button
+          class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 mr-2"
+          (click)="closeEditQualityParameterModal()"
+        >
+          İptal
+        </button>
+        <button
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+          (click)="saveEditedQualityParameter()"
         >
           Kaydet
         </button>
