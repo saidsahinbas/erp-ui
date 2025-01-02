@@ -12,7 +12,7 @@ export class Stock {
 }
 
 export enum StockStatus {
-  NORMAL= 'normal',
-  CRITICAL='critical',
-  OUT_OF_STOCK='outOfStock'
+  NORMAL = 'NORMAL',
+  CRITICAL = 'CRITICAL',
+  OUT_OF_STOCK = 'OUT_OF_STOCK',
 }

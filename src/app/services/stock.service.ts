@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Stock} from "../models/stock/stock";
 import {CreateStockRequest} from "../models/stock/create-stock-request";
+import {GetAllStockResponseDto} from "../models/stock/get-all-stock-response-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,21 @@ export class StockService {
     );
   }
 
-  getAllStocks(): Observable<Stock[]> {
-    return this.httpClient.get<Stock[]>(`${this.API_URL}/all`);
+  getAllSupplierWithFilter(
+    productName: string,
+    productCode: string,
+    categoryName: string,
+    supplierName: string,
+    warehouseName: string
+  ): Observable<GetAllStockResponseDto[]> {
+    const filterPayload = {
+      productName: productName || null,
+      productCode: productCode || null,
+      categoryName: categoryName || null,
+      supplierName: supplierName || null,
+      warehouseName: warehouseName || null
+    };
+
+    return this.httpClient.post<GetAllStockResponseDto[]>(`${this.API_URL}/filter`, filterPayload);
   }
 }

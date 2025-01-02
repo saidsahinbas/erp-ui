@@ -5,42 +5,57 @@
 
     <!-- Filters Section -->
     <div class="grid grid-cols-6 gap-4 mb-6">
-      <input
-        type="text"
-        placeholder="Ürün adı girin..."
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      />
-      <input
-        type="text"
-        placeholder="Stok kodu girin..."
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      />
-      <select
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      >
-        <option>Tümü</option>
-        <option>Hammadde</option>
-        <option>Yarı Mamul</option>
-      </select>
-      <select
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      >
-        <option>Tümü</option>
-        <option>Tedarikçi 1</option>
-        <option>Tedarikçi 2</option>
-      </select>
-      <select
-        class="col-span-1 border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
-      >
-        <option>Tümü</option>
-        <option>Depo 1</option>
-        <option>Depo 2</option>
-      </select>
-      <button
-        class="col-span-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-      >
-        Filtrele
-      </button>
+      <!-- Category Filter -->
+      <div class="col-span-1">
+        <label class="block text-gray-700 font-medium mb-2">Kategori:</label>
+        <select
+          [(ngModel)]="filters.categoryName"
+          class="w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        >
+          <option value="">Tümü</option>
+          <option *ngFor="let category of categories" [value]="category.categoryName">
+            {{ category.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Supplier Filter -->
+      <div class="col-span-1">
+        <label class="block text-gray-700 font-medium mb-2">Tedarikçi:</label>
+        <select
+          [(ngModel)]="filters.supplierName"
+          class="w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        >
+          <option value="">Tümü</option>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.name">
+            {{ supplier.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Warehouse Filter -->
+      <div class="col-span-1">
+        <label class="block text-gray-700 font-medium mb-2">Depo:</label>
+        <select
+          [(ngModel)]="filters.warehouseName"
+          class="w-full border rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:outline-none"
+        >
+          <option value="">Tümü</option>
+          <option *ngFor="let warehouse of warehouses" [value]="warehouse.name">
+            {{ warehouse.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Filter Button -->
+      <div class="col-span-1 flex items-end">
+        <button
+          (click)="filterStocks()"
+          class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Filtrele
+        </button>
+      </div>
     </div>
 
     <!-- Table Section -->
@@ -58,32 +73,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-gray-700">
-          <td class="px-4 py-2 border-b">Kamera Lens</td>
-          <td class="px-4 py-2 border-b">Hammadde</td>
-          <td class="px-4 py-2 border-b">20</td>
-          <td class="px-4 py-2 border-b">15</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 1</td>
-          <td class="px-4 py-2 border-b">Depo 1</td>
-          <td class="px-4 py-2 border-b text-green-600">Normal</td>
-        </tr>
-        <tr class="text-red-600 font-bold">
-          <td class="px-4 py-2 border-b">Elektronik Devre</td>
-          <td class="px-4 py-2 border-b">Hammadde</td>
-          <td class="px-4 py-2 border-b">10</td>
-          <td class="px-4 py-2 border-b">20</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 2</td>
-          <td class="px-4 py-2 border-b">Depo 2</td>
-          <td class="px-4 py-2 border-b text-red-600">Kritik</td>
-        </tr>
-        <tr class="text-gray-700">
-          <td class="px-4 py-2 border-b">Plastik Gövde</td>
-          <td class="px-4 py-2 border-b">Yarı Mamul</td>
-          <td class="px-4 py-2 border-b">50</td>
-          <td class="px-4 py-2 border-b">30</td>
-          <td class="px-4 py-2 border-b">Tedarikçi 3</td>
-          <td class="px-4 py-2 border-b">Depo 1</td>
-          <td class="px-4 py-2 border-b text-green-600">Normal</td>
+        <tr
+          *ngFor="let stock of stocks"
+          [ngClass]="{
+      'text-red-600 font-bold': stock.status === StockStatus.CRITICAL,
+      'text-gray-700': stock.status !== StockStatus.CRITICAL
+    }"
+        >
+          <td class="px-4 py-2 border-b">{{ stock.productName }}</td>
+          <td class="px-4 py-2 border-b">{{ stock.categoryName }}</td>
+          <td class="px-4 py-2 border-b">{{ stock.quantity }}</td>
+          <td class="px-4 py-2 border-b">{{ stock.criticalLevel }}</td>
+          <td class="px-4 py-2 border-b">{{ stock.supplierName }}</td>
+          <td class="px-4 py-2 border-b">{{ stock.warehouseName }}</td>
+          <td class="px-4 py-2 border-b">
+            {{
+              stock.status === StockStatus.NORMAL
+                ? 'Normal'
+                : stock.status === StockStatus.CRITICAL
+                  ? 'Kritik'
+                  : 'Stok Yok'
+            }}
+          </td>
         </tr>
         </tbody>
       </table>
@@ -92,16 +103,25 @@
     <!-- Bottom Section -->
     <div class="grid grid-cols-2 gap-6">
       <!-- Kritik Stoklar -->
-      <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
+      <div
+        *ngIf="criticalStocks.length > 0"
+        class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg"
+      >
         <p><strong>Kritik Stoklar</strong></p>
-        <p>Elektronik Devre - Mevcut: 10 (Kritik Seviye: 20)</p>
+        <div *ngFor="let stock of criticalStocks">
+          <p>
+            {{ stock.productName }} - Mevcut: {{ stock.quantity }} (Kritik
+            Seviye: {{ stock.criticalLevel }})
+          </p>
+        </div>
       </div>
 
+      <!-- Stok Dağılımı -->
       <!-- Stok Dağılımı -->
       <div class="bg-white border rounded-lg p-4">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Stok Dağılımı</h3>
         <div class="flex justify-center">
-          <img src="path-to-chart-image" alt="Stok Dağılımı" class="w-64 h-64">
+          <canvas id="stockDistributionChart"></canvas>
         </div>
       </div>
     </div>
