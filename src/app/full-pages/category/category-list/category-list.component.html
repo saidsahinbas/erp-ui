@@ -1,0 +1,43 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-5xl mx-auto bg-white shadow rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Kategori Listesi</h2>
+      <button
+        class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        (click)="navigateToCreateCategory()"
+      >
+        Yeni Kategori Ekle
+      </button>
+    </div>
+
+    <table class="min-w-full border">
+      <thead>
+      <tr class="bg-gray-100">
+        <th class="text-left px-4 py-2 border">#</th>
+        <th class="text-left px-4 py-2 border">Adı</th>
+        <th class="text-left px-4 py-2 border">İşlemler</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let category of categories; let i = index" class="hover:bg-gray-50">
+        <td class="px-4 py-2 border">{{ i + 1 }}</td>
+        <td class="px-4 py-2 border">{{ category.categoryName }}</td>
+        <td class="px-4 py-2 border">
+          <button
+            class="bg-yellow-500 text-white py-1 px-3 rounded-lg hover:bg-yellow-600 mr-2"
+            (click)="editCategory(category.id)"
+          >
+            Düzenle
+          </button>
+          <button
+            class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600"
+            (click)="deleteCategory(category.id)"
+          >
+            Sil
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

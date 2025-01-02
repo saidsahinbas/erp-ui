@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
     stock: false,
     supplier: false,
     purchase: false,
-    quality: false
+    quality: false,
+    category: false
   };
 
   permissions: any = {}; // Object to store screen permissions
@@ -59,11 +60,6 @@ export class HomeComponent implements OnInit {
     return this.dropdownStates[dropdownName];
   }
 
-  /**
-   * Checks if a user has the `read` permission for a specific screen.
-   * @param screenName The name of the screen.
-   * @returns True if the user has the `read` permission, otherwise false.
-   */
   hasReadPermission(screenName: string): boolean {
     return this.permissions[screenName]?.read || false;
   }

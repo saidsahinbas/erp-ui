@@ -1,0 +1,38 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-md mx-auto bg-white shadow rounded-lg p-6">
+    <h2 class="text-lg font-semibold mb-4 text-center">Yeni Kategori Ekle</h2>
+
+    <!-- Kategori Adı Girişi -->
+    <form (ngSubmit)="saveCategory()">
+      <div class="mb-4">
+        <label for="categoryName" class="block text-sm font-medium mb-1">Kategori Adı</label>
+        <input
+          type="text"
+          id="categoryName"
+          [(ngModel)]="categoryName"
+          name="categoryName"
+          placeholder="Kategori adını girin"
+          class="w-full border rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
+      </div>
+
+      <!-- Kaydet ve Geri Dön Butonları -->
+      <div class="flex justify-between">
+        <button
+          type="button"
+          class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400"
+          (click)="navigateToCategoryList()"
+        >
+          Geri Dön
+        </button>
+        <button
+          type="submit"
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        >
+          Kaydet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

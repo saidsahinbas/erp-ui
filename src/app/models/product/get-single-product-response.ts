@@ -1,3 +1,5 @@
+import {QualityParameter} from "../quality-parameter/quality-parameter";
+
 export class GetSingleProductResponse {
   id: number; // Unique identifier for the product
   productName: string; // Name of the product
@@ -10,4 +12,6 @@ export class GetSingleProductResponse {
   supplierNames: string[]; // List of supplier names
   image1: string;
   image2: string;
+  documents: Document[];
+  qualityParameters: QualityParameter[];
 }

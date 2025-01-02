@@ -1,97 +1,104 @@
-<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
-  <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
-    <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-      <!-- Product Images -->
-      <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+  <div class="bg-white">
+    <div class="pt-6">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb">
+        <ol class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <li>
+            <a [routerLink]="['/products']" class="text-sm font-medium text-gray-500 hover:text-gray-600">Ana Sayfa</a>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Image Gallery -->
+      <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8">
         <img
           *ngIf="sanitizedImage1"
           [src]="sanitizedImage1"
-          alt="Product Image 1"
-          class="w-full max-h-52 rounded-lg mb-4"
+          alt="Ürün Görseli 1"
+          class="rounded-lg object-cover lg:col-span-1"
         />
-        <img
-          *ngIf="sanitizedImage2"
-          [src]="sanitizedImage2"
-          alt="Product Image 2"
-          class="w-full max-h-52 rounded-lg"
-        />
+        <div class="lg:grid lg:grid-rows-2 lg:gap-y-4 lg:col-span-2">
+          <img
+            *ngIf="sanitizedImage2"
+            [src]="sanitizedImage2"
+            alt="Ürün Görseli 2"
+            class="rounded-lg object-cover"
+          />
+        </div>
       </div>
 
-      <!-- Product Details -->
-      <div class="mt-6 sm:mt-8 lg:mt-0">
-        <h1
-          class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
-        >
-          {{ product?.productName }}
-        </h1>
+      <!-- Product Info -->
+      <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:pt-10">
+        <div class="lg:col-span-2">
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ product?.productName }}</h1>
+          <p class="mt-4 text-gray-500"><strong>Kod:</strong> {{ product?.code }}</p>
+          <p class="mt-4 text-lg text-gray-500"><strong>Kategori:</strong> {{ product?.categoryName }}</p>
 
-        <p class="mt-2 text-gray-500 dark:text-gray-400">
-          <strong>Kod:</strong> {{ product?.code }}
-        </p>
-
-        <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-          <p
-            class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
-          >
-            {{ product?.salePrice | currency:'TRY' }}
-          </p>
-
-          <p
-            class="text-lg font-medium text-gray-500 sm:mt-0 dark:text-gray-400"
-          >
-            <del *ngIf="product?.purchasePrice">
-              {{ product?.purchasePrice | currency:'TRY' }}
-            </del>
+          <!-- Durumlar -->
+          <div *ngIf="product?.productStatuses?.length">
+            <p class="mt-4 text-lg text-gray-500"><strong>Durum:</strong></p>
+            <ul class="mt-2">
+              <li *ngFor="let status of product?.productStatuses" class="text-gray-500">
+                {{ status }}
+              </li>
+            </ul>
+          </div>
+          <p *ngIf="!product?.productStatuses?.length" class="mt-4 text-lg text-gray-500">
+            <strong>Durum:</strong> Durum bilgisi yok.
           </p>
         </div>
-
-        <div class="mt-6">
-          <strong class="block text-gray-900 dark:text-white">
-            Kategori:
-          </strong>
-          <p class="text-gray-500 dark:text-gray-400">
-            {{ product?.categoryName }}
+        <div>
+          <p class="text-3xl font-bold tracking-tight text-gray-900">{{ product?.salePrice | currency:'TRY' }}</p>
+          <p *ngIf="product?.purchasePrice" class="mt-2 text-gray-500">
+            <del>{{ product?.purchasePrice | currency:'TRY' }}</del>
           </p>
         </div>
+      </div>
 
-        <div class="mt-6">
-          <strong class="block text-gray-900 dark:text-white">Durumu:</strong>
-          <ul class="text-gray-500 dark:text-gray-400">
-            <li *ngFor="let status of product?.productStatuses">
-              {{ status }}
-            </li>
-          </ul>
-        </div>
 
-        <div class="mt-6">
-          <strong class="block text-gray-900 dark:text-white">Tedarikçiler:</strong>
-          <ul class="text-gray-500 dark:text-gray-400">
-            <li *ngFor="let supplier of product?.supplierNames">
-              {{ supplier }}
-            </li>
-          </ul>
-        </div>
+      <!-- Documents Section -->
+      <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="mt-10 text-lg font-bold text-gray-900">Belgeler</h2>
+        <ul class="mt-4 space-y-2">
+          <li *ngFor="let document of documents">
+            <a
+              (click)="downloadDocument(document.content, document.name)"
+              class="text-blue-600 hover:underline"
+            >
+              {{ document.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
 
-        <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+      <!-- Quality Parameters -->
+      <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="mt-10 text-lg font-bold text-gray-900">Kalite Parametreleri</h2>
+        <table class="mt-4 w-full table-auto border-collapse border border-gray-200">
+          <thead class="bg-gray-100">
+          <tr>
+            <th class="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">Ad</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">Açıklama</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">Varsayılan Değer</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">Min Değer</th>
+            <th class="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">Max Değer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let param of qualityParameters">
+            <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ param.name }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ param.description }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ param.defaultValue }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ param.minValue }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ param.maxValue }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-        <p class="mb-6 text-gray-500 dark:text-gray-400">
-          {{ product?.description }}
-        </p>
-
-        <div class="sm:gap-4 sm:items-center sm:flex">
-          <button
-            class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Favorilere Ekle
-          </button>
-
-          <button
-            class="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
-          >
-            Sepete Ekle
-          </button>
-        </div>
+      <!-- Edit Button -->
+      <div class="mt-10 text-center">
+        <button class="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700">Metin Alanlarını Düzenle</button>
       </div>
     </div>
   </div>
-</section>

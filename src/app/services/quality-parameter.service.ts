@@ -20,4 +20,8 @@ export class QualityParameterService {
   createQualityParameter(qualityParameter: QualityParameter): Observable<QualityParameter> {
     return this.httpClient.post<QualityParameter>(`${this.API_URL}/create`, qualityParameter);
   }
+
+  getAllQualityParametersByProduct(productId: number) : Observable<QualityParameter[]> {
+    return this.httpClient.get<QualityParameter[]>(`${this.API_URL}/by-product/${productId}`);
+  }
 }

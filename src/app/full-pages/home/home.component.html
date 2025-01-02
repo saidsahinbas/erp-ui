@@ -59,6 +59,24 @@
     </div>
   </div>
 
+  <!-- Category Operations -->
+  <div class="mb-4">
+    <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"
+            type="button"
+            (click)="toggleDropdown('category')">
+      <span class="text-lg font-medium text-gray-800">Kategori İşlemleri</span>
+      <span>&#9660;</span> <!-- Down Arrow Icon -->
+    </button>
+    <div *ngIf="isDropdownOpen('category')" class="bg-white shadow rounded p-4">
+      <div class="flex items-center justify-between mb-4">
+        <a [routerLink]="['/category']" class="flex items-center">
+          <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl">🏢</div>
+          <span class="ml-4 text-gray-700 font-medium">Kategori Listesi</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Product Operations -->
   <div class="mb-4">
     <button class="w-full flex items-center justify-between bg-violet-200 p-4 rounded-lg shadow mb-2"

@@ -32,6 +32,8 @@ import { QualityControlTestResultsComponent } from './full-pages/quality-control
 import { UserDetailComponent } from './full-pages/user-authority/user-detail/user-detail.component';
 import { UserAuthorityDetailComponent } from './full-pages/user-authority/user-authority-detail/user-authority-detail.component';
 import { QualityParameterComponent } from './full-pages/quality-control/quality-parameter/quality-parameter.component';
+import { CategoryListComponent } from './full-pages/category/category-list/category-list.component';
+import { CategoryCreateComponent } from './full-pages/category/category-create/category-create.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { QualityParameterComponent } from './full-pages/quality-control/quality-
     UserDetailComponent,
     UserAuthorityDetailComponent,
     QualityParameterComponent,
+    CategoryListComponent,
+    CategoryCreateComponent,
   ],
   imports: [
     BrowserModule,

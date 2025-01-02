@@ -29,6 +29,8 @@ import {
   UserAuthorityDetailComponent
 } from "./full-pages/user-authority/user-authority-detail/user-authority-detail.component";
 import {QualityParameterComponent} from "./full-pages/quality-control/quality-parameter/quality-parameter.component";
+import {CategoryListComponent} from "./full-pages/category/category-list/category-list.component";
+import {CategoryCreateComponent} from "./full-pages/category/category-create/category-create.component";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -72,6 +74,15 @@ export const routes: Routes = [
       { path: 'create', component: QualityParameterComponent, canActivate: [AuthGuard] },
     ]
   },
+  {
+    path: 'category',
+    children: [
+      { path: '', component: CategoryListComponent, canActivate: [AuthGuard] },
+      { path: '', component: CategoryListComponent, canActivate: [AuthGuard] },
+      { path: 'create', component: CategoryCreateComponent, canActivate: [AuthGuard] },
+    ]
+  },
+
   { path: 'add-user', component: UserCreateComponent, canActivate: [AuthGuard] },
   { path: 'manage-user', component: UserEditComponent, canActivate: [AuthGuard] },
   { path: 'user-authority-create', component: UserAuthorityCreateComponent, canActivate: [AuthGuard] },
