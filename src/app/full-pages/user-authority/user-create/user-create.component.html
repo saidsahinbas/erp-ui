@@ -4,86 +4,114 @@
   <form class="space-y-6" (ngSubmit)="handleCreateUser()">
     <!-- First Name and Last Name -->
     <div class="flex space-x-4">
-      <input
-        type="text"
-        placeholder="Ad Girin"
-        [(ngModel)]="user.firstName"
-        name="firstName"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Soyad Girin"
-        [(ngModel)]="user.lastName"
-        name="lastName"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      />
+      <div class="w-1/2">
+        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Ad</label>
+        <input
+          type="text"
+          id="firstName"
+          placeholder="Ad Girin"
+          [(ngModel)]="user.firstName"
+          name="firstName"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+      <div class="w-1/2">
+        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
+        <input
+          type="text"
+          id="lastName"
+          placeholder="Soyad Girin"
+          [(ngModel)]="user.lastName"
+          name="lastName"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
     </div>
 
     <!-- Email and Password -->
     <div class="flex space-x-4">
-      <input
-        type="email"
-        placeholder="E-posta Girin"
-        [(ngModel)]="user.email"
-        name="email"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Şifre Girin"
-        [(ngModel)]="user.password"
-        name="password"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      />
+      <div class="w-1/2">
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-posta</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="E-posta Girin"
+          [(ngModel)]="user.email"
+          name="email"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+      <div class="w-1/2">
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Şifre</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Şifre Girin"
+          [(ngModel)]="user.password"
+          name="password"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
     </div>
 
     <!-- Role -->
     <div class="flex space-x-4">
-      <select
-        [(ngModel)]="user.roleId"
-        name="role"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        <option value="">Kullanıcı Türü Seçin</option>
-        <option *ngFor="let role of roles" [value]="role.id">
-          {{ role.name }}
-        </option>
-      </select>
+      <div class="w-1/2">
+        <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Kullanıcı Türü</label>
+        <select
+          id="role"
+          [(ngModel)]="user.roleId"
+          name="role"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        >
+          <option value="">Kullanıcı Türü Seçin</option>
+          <option *ngFor="let role of roles" [value]="role.id">
+            {{ role.name }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <!-- Authority Group -->
     <div class="flex space-x-4">
-      <select
-        [(ngModel)]="user.authorityGroupId"
-        name="authorityGroupId"
-        class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        <option value="">Yetki Grubu Seçin</option>
-        <option *ngFor="let authority of authorities" [value]="authority.id">
-          {{ authority.name }}
-        </option>
-      </select>
+      <div class="w-full">
+        <label for="authorityGroupId" class="block text-sm font-medium text-gray-700 mb-1">Yetki Grubu</label>
+        <select
+          id="authorityGroupId"
+          [(ngModel)]="user.authorityGroupId"
+          name="authorityGroupId"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        >
+          <option value="">Yetki Grubu Seçin</option>
+          <option *ngFor="let authority of authorities" [value]="authority.id">
+            {{ authority.name }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <!-- Status -->
     <div class="flex space-x-4">
-      <select
-        [(ngModel)]="user.status"
-        name="status"
-        class="border rounded-lg px-4 py-2 w-1/2 focus:ring focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        <option value="">Durum Seçin</option>
-        <option value="active">Aktif</option>
-        <option value="passive">Pasif</option>
-      </select>
+      <div class="w-1/2">
+        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Durum</label>
+        <select
+          id="status"
+          [(ngModel)]="user.status"
+          name="status"
+          class="border rounded-lg px-4 py-2 w-full focus:ring focus:ring-blue-500 focus:outline-none"
+          required
+        >
+          <option value="">Durum Seçin</option>
+          <option value="active">Aktif</option>
+          <option value="passive">Pasif</option>
+        </select>
+      </div>
     </div>
 
     <!-- Submit Button -->

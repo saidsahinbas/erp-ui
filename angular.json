@@ -68,6 +68,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "erp-ui:build",
+            "port": 4444
+          },
           "configurations": {
             "production": {
               "browserTarget": "erp-ui:build:production"
