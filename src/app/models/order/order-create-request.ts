@@ -5,14 +5,14 @@ export class OrderCreateRequest {
   orderStatus: OrderStatus;
   description: string;
   supplierId: string;
-  orderLineList: OrderLineDto[];
+  orderLineDtoList: OrderLineDtoList[];
   title: string;
   userId: number;
   warehouseId: number;
   orderType: OrderType;
 }
 
-class OrderLineDto {
+class OrderLineDtoList {
   quantity: number;
   productId: number;
 }
