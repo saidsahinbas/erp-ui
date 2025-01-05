@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {Product} from "../models/product/product";
 import {GetAllProductResponse} from "../models/product/get-all-product-response";
 import {GetSingleProductResponse} from "../models/product/get-single-product-response";
+import {GetProductsBySupplier} from "../models/product/get-products-by-supplier";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class ProductService {
 
   getSinglePrdouct(id: number): Observable<GetSingleProductResponse> {
     return this.httpClient.get<GetSingleProductResponse>(`${this.productUrl}/${id}`);
+  }
+
+  getProductsBySupplier(supplier: string): Observable<GetProductsBySupplier> {
+    return this.httpClient.get<GetProductsBySupplier>(`${this.productUrl}/by-supplier/${supplier}`);
   }
 }

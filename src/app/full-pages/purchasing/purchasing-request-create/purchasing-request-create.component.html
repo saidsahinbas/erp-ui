@@ -4,98 +4,163 @@
 
   <!-- Form Section -->
   <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-    <div class="grid grid-cols-2 gap-6">
-      <!-- Talep Başlığı -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Talep Başlığı:</label>
-        <input
-          type="text"
-          placeholder="Talep başlığı girin"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        />
+    <form>
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Talep Başlığı -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Talep Başlığı:</label>
+          <input
+            type="text"
+            placeholder="Talep başlığı girin"
+            [(ngModel)]="orderRequest.title"
+            name="title"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+            required
+          />
+        </div>
+
+        <!-- Talep Eden -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Talep Eden:</label>
+          <input
+            type="text"
+            value="Kullanıcı Adı"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none"
+            readonly
+          />
+        </div>
+
+        <!-- Tedarikçi -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Tedarikçi:</label>
+          <select
+            [(ngModel)]="selectedSupplier"
+            name="supplierId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+            required
+          >
+            <option value="">Tedarikçi Seçin</option>
+            <option *ngFor="let supplier of suppliers" [value]="supplier.name">{{ supplier.name }}</option>
+          </select>
+        </div>
       </div>
-      <!-- Talep Eden -->
+
+      <!-- Depo -->
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Talep Eden:</label>
-        <input
-          type="text"
-          value="Kullanıcı Adı"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none"
-          readonly
-        />
-      </div>
-      <!-- Talep Tarihi -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Talep Tarihi:</label>
-        <input
-          type="date"
-          value="2024-12-01"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        />
-      </div>
-      <!-- Tedarikçi -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Tedarikçi:</label>
+        <label class="block text-gray-700 font-medium mb-1">Depo:</label>
         <select
+          [(ngModel)]="selectedWarehouse"
+          name="warehouseId"
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+          required
         >
-          <option>Tedarikçi 1</option>
-          <option>Tedarikçi 2</option>
+          <option value="">Depo Seçin</option>
+          <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">{{ warehouse.name }}</option>
         </select>
       </div>
-      <!-- Giriş Depo -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Giriş Depo:</label>
-        <select
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        >
-          <option>Depo 1</option>
-          <option>Depo 2</option>
-        </select>
-      </div>
+
       <!-- Açıklama -->
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Açıklama:</label>
-        <textarea
-          rows="2"
-          placeholder="Açıklama girin"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        ></textarea>
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Açıklama</label>
+        <textarea [(ngModel)]="orderRequest.description" rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Açıklama girin..."></textarea>
       </div>
-    </div>
 
-    <!-- Ürün Seç Butonu -->
-    <div class="mt-6">
-      <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg">
-        Ürün Seç
-      </button>
+      <!-- Ürün Seç Button -->
+      <div class="mt-6 flex justify-end">
+        <button
+          type="button"
+          [disabled]="!selectedSupplier"
+          (click)="loadProductsBySupplier()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg"
+        >
+          Ürün Seç
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Products Modal -->
+  <div
+    *ngIf="isProductModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <div class="bg-white w-3/4 p-6 rounded-lg shadow-lg">
+      <h2 class="text-xl font-bold text-gray-700 mb-4">Ürün Seç</h2>
+      <table class="w-full border-collapse">
+        <thead>
+        <tr class="bg-gray-100">
+          <th class="p-3 border">Ürün Adı</th>
+          <th class="p-3 border">Kategori</th>
+          <th class="p-3 border">Alış Fiyatı</th>
+          <th class="p-3 border">Satış Fiyatı</th>
+          <th class="p-3 border">Ekle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of products" class="text-gray-700">
+          <td class="p-3 border">{{ product.productName }}</td>
+          <td class="p-3 border">{{ product.categoryName }}</td>
+          <td class="p-3 border">{{ product.purchasePrice }}</td>
+          <td class="p-3 border">{{ product.salePrice }}</td>
+          <td class="p-3 border">
+            <button
+              (click)="addProductToOrder(product)"
+              class="bg-green-600 text-white px-4 py-1 rounded-lg ml-2"
+            >
+              Ekle
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="mt-4 flex justify-end">
+        <button
+          (click)="closeProductModal()"
+          class="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg"
+        >
+          Kapat
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Table Section -->
+  <!-- Order Lines Table -->
   <div class="bg-white p-6 rounded-lg shadow-md">
-    <table class="w-full text-sm text-left border-collapse">
+    <h2 class="text-xl font-bold text-gray-700 mb-4">Seçili Ürünler</h2>
+    <table class="w-full border-collapse">
       <thead>
-      <tr class="bg-gray-100 text-gray-600">
+      <tr class="bg-gray-100">
         <th class="p-3 border">Ürün Adı</th>
         <th class="p-3 border">Kategori</th>
         <th class="p-3 border">Alış Fiyatı</th>
         <th class="p-3 border">Satış Fiyatı</th>
         <th class="p-3 border">Miktar</th>
+        <th class="p-3 border">Sil</th>
       </tr>
       </thead>
       <tbody>
-      <tr class="text-gray-700">
-        <td class="p-3 border">Kamera Lens</td>
-        <td class="p-3 border">Hammadde</td>
-        <td class="p-3 border">100</td>
-        <td class="p-3 border">150</td>
+      <tr *ngFor="let line of orderLines; let i = index" class="text-gray-700">
+        <td class="p-3 border">{{ line.productName }}</td>
+        <td class="p-3 border">{{ line.categoryName }}</td>
+        <td class="p-3 border">{{ line.purchasePrice }}</td>
+        <td class="p-3 border">{{ line.salePrice }}</td>
         <td class="p-3 border">
           <input
             type="number"
+            [(ngModel)]="line.quantity"
+            class="w-full px-2 py-1 border rounded-lg"
             placeholder="Miktar girin"
-            class="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
           />
+        </td>
+        <td class="p-3 border">
+          <button
+            (click)="removeProductFromOrder(i)"
+            class="bg-red-600 text-white px-4 py-1 rounded-lg"
+          >
+            Sil
+          </button>
         </td>
       </tr>
       </tbody>
