@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {UpdateOrderStatusRequest} from "../models/order/update-order-status-request";
 import {GetOrderByUserResponse} from "../models/order/get-order-by-user-response";
 import {Order} from "../models/order/order";
+import {GetAllStockResponseDto} from "../models/stock/get-all-stock-response-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,13 @@ export class OrderService {
     return this.httpClient.get<GetOrderByUserResponse[]>(`${this.API_URL}/getOrderByUser/${userId}`);
   }
 
-  getOrderById(orderId: number): Observable<Order> {
-    return this.httpClient.get<Order>(`${this.API_URL}/getOrder/${orderId}`);
-  }
-
   //onay bekleyen siparişler
   getOrderByApproval(): Observable<GetOrderByUserResponse[]> {
     return this.httpClient.get<GetOrderByUserResponse[]>(`${this.API_URL}/approvalOrder`);
   }
+
+  getOrderById(orderId: number): Observable<Order> {
+    return this.httpClient.get<Order>(`${this.API_URL}/getOrder/${orderId}`);
+  }
+
 }

@@ -2,58 +2,6 @@
   <!-- Sayfa Başlığı -->
   <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">Satın Alma Talep Onay Süreci</h1>
 
-  <!-- Filtreleme Bölümü -->
-  <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-    <div class="grid grid-cols-4 gap-4">
-      <!-- Durum -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Durum:</label>
-        <select
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        >
-          <option>Tümü</option>
-          <option>Pending</option>
-          <option>Approved</option>
-          <option>Rejected</option>
-        </select>
-      </div>
-
-      <!-- Başlangıç Tarihi -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Başlangıç Tarihi:</label>
-        <input
-          type="date"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        />
-      </div>
-
-      <!-- Bitiş Tarihi -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Bitiş Tarihi:</label>
-        <input
-          type="date"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        />
-      </div>
-
-      <!-- Talep Eden -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Talep Eden:</label>
-        <input
-          type="text"
-          placeholder="Talep eden adı girin"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-        />
-      </div>
-    </div>
-
-    <!-- Filtrele Butonu -->
-    <div class="mt-4">
-      <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg">
-        Filtrele
-      </button>
-    </div>
-  </div>
 
   <!-- Tablo Bölümü -->
   <div class="bg-white p-4 rounded-lg shadow-md">
@@ -63,49 +11,75 @@
         <th class="p-3 border text-left">Talep ID</th>
         <th class="p-3 border text-left">Talep Başlığı</th>
         <th class="p-3 border text-left">Talep Eden</th>
-        <th class="p-3 border text-left">Tedarikçi</th>
         <th class="p-3 border text-left">Durum</th>
-        <th class="p-3 border text-left">İşlem</th>
+        <th class="p-3 border text-left">Tarih</th>
+        <th class="p-3 border text-left">Fiyat</th>
+        <th class="p-3 border text-left" *ngIf="canUpdateOrDelete">İşlem</th>
       </tr>
       </thead>
       <tbody>
-      <!-- Row 1 -->
-      <tr class="border-b">
-        <td class="p-3">1</td>
-        <td class="p-3">Elektronik Parçalar</td>
-        <td class="p-3">Ali</td>
-        <td class="p-3">Tedarikçi 1</td>
-        <td class="p-3 text-yellow-500 font-semibold">Pending</td>
-        <td class="p-3 flex gap-2">
-          <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Onayla</button>
-          <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Reddet</button>
+      <!-- Sipariş Listesi -->
+      <tr *ngFor="let order of paginatedOrders" class="border-b">
+        <td class="p-3">{{ order.orderId }}</td>
+        <td class="p-3">{{ order.orderTitle }}</td>
+        <td class="p-3">{{ order.orderUser }}</td>
+        <td class="p-3 text-yellow-500 font-semibold">{{ order.orderStatus }}</td>
+        <td class="p-3">{{ order.orderDate | date }}</td>
+        <td class="p-3">{{ order.price | currency: "₺" }}</td>
+        <td class="p-3 flex gap-2" *ngIf="canUpdateOrDelete">
+          <button
+            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+            (click)="updateOrderStatus(order.orderId, true)"
+          >
+            Onayla
+          </button>
+          <button
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+            (click)="updateOrderStatus(order.orderId, false)"
+          >
+            Reddet
+          </button>
         </td>
       </tr>
-      <!-- Row 2 -->
-      <tr class="border-b">
-        <td class="p-3">2</td>
-        <td class="p-3">Otomotiv Yedek Parçaları</td>
-        <td class="p-3">Ayşe</td>
-        <td class="p-3">Tedarikçi 2</td>
-        <td class="p-3 text-green-500 font-semibold">Approved</td>
-        <td class="p-3 flex gap-2">
-          <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Onayla</button>
-          <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Reddet</button>
-        </td>
-      </tr>
-      <!-- Row 3 -->
-      <tr>
-        <td class="p-3">3</td>
-        <td class="p-3">Plastik Gövde</td>
-        <td class="p-3">Fatma</td>
-        <td class="p-3">Tedarikçi 3</td>
-        <td class="p-3 text-red-500 font-semibold">Rejected</td>
-        <td class="p-3 flex gap-2">
-          <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Onayla</button>
-          <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Reddet</button>
-        </td>
+      <!-- Liste Boşsa -->
+      <tr *ngIf="orders.length === 0">
+        <td class="p-3 text-center" colspan="7">Gösterilecek sipariş bulunmamaktadır.</td>
       </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination Bölümü -->
+  <nav class="mt-4 flex justify-center">
+    <ul class="inline-flex space-x-2">
+      <li>
+        <button
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Önceki
+        </button>
+      </li>
+      <li *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button
+          (click)="goToPage(i + 1)"
+          [class.bg-purple-700]="currentPage === i + 1"
+          [class.text-white]="currentPage === i + 1"
+          class="focus:outline-none text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Sonraki
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>
