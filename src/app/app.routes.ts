@@ -31,6 +31,12 @@ import {
 import {QualityParameterComponent} from "./full-pages/quality-control/quality-parameter/quality-parameter.component";
 import {CategoryListComponent} from "./full-pages/category/category-list/category-list.component";
 import {CategoryCreateComponent} from "./full-pages/category/category-create/category-create.component";
+import {
+  QualityControlDetailComponent
+} from "./full-pages/quality-control/quality-control-detail/quality-control-detail.component";
+import {
+  QualityControlStandartTableComponent
+} from "./full-pages/quality-control/quality-control-standart-table/quality-control-standart-table.component";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -72,6 +78,8 @@ export const routes: Routes = [
     children: [
       { path: 'results', component: QualityControlTestResultsComponent, canActivate: [AuthGuard] },
       { path: 'create', component: QualityParameterComponent, canActivate: [AuthGuard] },
+      { path: 'detail', component: QualityControlDetailComponent, canActivate: [AuthGuard] },
+      { path: 'table', component: QualityControlStandartTableComponent, canActivate: [AuthGuard] },
     ]
   },
   {

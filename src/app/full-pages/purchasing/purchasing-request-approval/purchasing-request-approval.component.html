@@ -2,7 +2,6 @@
   <!-- Sayfa Başlığı -->
   <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">Satın Alma Talep Onay Süreci</h1>
 
-
   <!-- Tablo Bölümü -->
   <div class="bg-white p-4 rounded-lg shadow-md">
     <table class="w-full border-collapse text-gray-700 text-sm">
@@ -23,23 +22,43 @@
         <td class="p-3">{{ order.orderId }}</td>
         <td class="p-3">{{ order.orderTitle }}</td>
         <td class="p-3">{{ order.orderUser }}</td>
-        <td class="p-3 text-yellow-500 font-semibold">{{ order.orderStatus }}</td>
+        <td class="p-3 font-semibold"
+            [ngClass]="{
+              'text-yellow-500': order.orderStatus === 'PENDING',
+              'text-green-500': order.orderStatus === 'APPROVED',
+              'text-red-500': order.orderStatus === 'REJECTED'
+            }">
+          {{ order.orderStatus }}
+        </td>
         <td class="p-3">{{ order.orderDate | date }}</td>
         <td class="p-3">{{ order.price | currency: "₺" }}</td>
         <td class="p-3 flex gap-2" *ngIf="canUpdateOrDelete">
+          <!-- Existing Approve/Reject Buttons -->
           <button
+            *ngIf="order.orderStatus === 'PENDING'"
             class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
-            (click)="updateOrderStatus(order.orderId, true)"
+            (click)="updateOrderStatus(order.orderId, OrderStatus.APPROVED)"
           >
             Onayla
           </button>
           <button
+            *ngIf="order.orderStatus === 'PENDING'"
             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-            (click)="updateOrderStatus(order.orderId, false)"
+            (click)="updateOrderStatus(order.orderId, OrderStatus.REJECTED)"
           >
             Reddet
           </button>
+
+          <!-- "Siparişi Teslim Al" Button for APPROVED Orders -->
+          <button
+            *ngIf="order.orderStatus === 'APPROVED'"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+            (click)="markOrderAsRecieved(order.orderId)"
+          >
+            Siparişi Teslim Al
+          </button>
         </td>
+
       </tr>
       <!-- Liste Boşsa -->
       <tr *ngIf="orders.length === 0">

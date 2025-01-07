@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {OrderService} from "../../../services/order.service";
 import {GetOrderByUserResponse} from "../../../models/order/get-order-by-user-response";
 import {UpdateOrderStatusRequest} from "../../../models/order/update-order-status-request";
+import {OrderStatus} from "../../../models/order/order-status";
 
 @Component({
   selector: 'app-purchasing-request-approval',
@@ -10,63 +11,47 @@ import {UpdateOrderStatusRequest} from "../../../models/order/update-order-statu
   styleUrls: ['./purchasing-request-approval.component.css']
 })
 export class PurchasingRequestApprovalComponent implements OnInit {
-  userSession: any = {}; // Kullanıcı oturum bilgisi
-  orders: GetOrderByUserResponse[] = []; // Sipariş listesi
-  canUpdateOrDelete: boolean = false; // Onaylama ve reddetme butonlarının görünürlüğü
+  userSession: any = {};
+  orders: GetOrderByUserResponse[] = [];
+  canUpdateOrDelete: boolean = false;
 
-  currentPage: number = 1; // Şu anki sayfa
-  itemsPerPage: number = 5; // Sayfa başına gösterilecek sipariş sayısı
-  totalPages: number = 0; // Toplam sayfa sayısı
-  paginatedOrders: GetOrderByUserResponse[] = []; // Şu anki sayfa için siparişler
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 0;
+  paginatedOrders: GetOrderByUserResponse[] = [];
 
-  filters = {
-    warehouseId: '',
-    startDate: '',
-    endDate: '',
-    orderStatus: '',
-    userId: '',
-  };
+  // Make OrderStatus public
+  public readonly OrderStatus = OrderStatus;
 
-  filteredOrders: any[] = [];
-
-  constructor(
-    private orderService: OrderService,
-    private router: Router
-  ) {}
+  constructor(private orderService: OrderService, private router: Router) {}
 
   ngOnInit(): void {
     const userSessionString = sessionStorage.getItem('userSession');
     if (userSessionString) {
       this.userSession = JSON.parse(userSessionString);
 
-      // Yetki kontrolü
       const screenPermissions = this.userSession.screens.find(
         (screen: { screenName: string }) =>
           screen.screenName === 'Purchase Request Approval'
       );
 
       if (screenPermissions) {
-        // Buton görünürlüğü için update veya delete yetkisini kontrol et
         this.canUpdateOrDelete = screenPermissions.update || screenPermissions.delete;
 
-        // Eğer read yetkisi yoksa ana sayfaya yönlendir
         if (!screenPermissions.read) {
           this.router.navigate(['/home']);
           return;
         }
 
-        // Yetkilere göre uygun metodu çağır
         if (this.canUpdateOrDelete) {
           this.loadApprovalOrders();
         } else {
           this.loadUserOrders();
         }
       } else {
-        // Eğer ekran yetkisi yoksa ana sayfaya yönlendir
         this.router.navigate(['/home']);
       }
     } else {
-      // Eğer oturum yoksa ana sayfaya yönlendir
       this.router.navigate(['/home']);
     }
   }
@@ -75,7 +60,7 @@ export class PurchasingRequestApprovalComponent implements OnInit {
     this.orderService.getOrderByApproval().subscribe(
       (data) => {
         this.orders = data;
-        this.setupPagination(); // Pagination ayarlarını çağır
+        this.setupPagination();
       },
       (error) => {
         console.error('Onay bekleyen siparişler yüklenirken hata oluştu:', error);
@@ -88,7 +73,7 @@ export class PurchasingRequestApprovalComponent implements OnInit {
     this.orderService.getOrderByUser(userId).subscribe(
       (data) => {
         this.orders = data;
-        this.setupPagination(); // Pagination ayarlarını çağır
+        this.setupPagination();
       },
       (error) => {
         console.error('Kullanıcı siparişleri yüklenirken hata oluştu:', error);
@@ -96,16 +81,16 @@ export class PurchasingRequestApprovalComponent implements OnInit {
     );
   }
 
-  updateOrderStatus(orderId: number, status: boolean): void {
+  updateOrderStatus(orderId: number, status: OrderStatus): void {
     const updateRequest: UpdateOrderStatusRequest = {
       orderId: orderId,
-      userId: this.userSession.id, // Kullanıcı ID
-      status: status // True: Onayla, False: Reddet
+      userId: this.userSession.id,
+      status: status,
     };
 
     this.orderService.updateOrderStatus(updateRequest).subscribe(
-      (response) => {
-        alert(status ? 'Sipariş onaylandı!' : 'Sipariş reddedildi!');
+      () => {
+        alert(status === OrderStatus.APPROVED ? 'Sipariş onaylandı!' : 'Sipariş reddedildi!');
         if (this.canUpdateOrDelete) {
           this.loadApprovalOrders();
         } else {
@@ -115,6 +100,26 @@ export class PurchasingRequestApprovalComponent implements OnInit {
       (error) => {
         console.error('Sipariş durumu güncellenirken hata oluştu:', error);
         alert('Sipariş durumu güncellenemedi. Lütfen tekrar deneyin.');
+      }
+    );
+  }
+
+  markOrderAsRecieved(orderId: number): void {
+    const updateRequest: UpdateOrderStatusRequest = {
+      orderId: orderId,
+      userId: this.userSession.id,
+      status: OrderStatus.RECEIVED,
+    };
+
+    // Make API request to update status
+    this.orderService.updateOrderStatus(updateRequest).subscribe(
+      () => {
+        alert('Sipariş teslim alındı!');
+        this.router.navigate(['/quality/results']); // Navigate to quality results page
+      },
+      (error) => {
+        console.error('Sipariş teslim alınırken hata oluştu:', error);
+        alert('Sipariş teslim alınamadı. Lütfen tekrar deneyin.');
       }
     );
   }
@@ -148,5 +153,4 @@ export class PurchasingRequestApprovalComponent implements OnInit {
     this.currentPage = pageNumber;
     this.updatePaginatedOrders();
   }
-
 }

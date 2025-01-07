@@ -34,6 +34,8 @@ import { UserAuthorityDetailComponent } from './full-pages/user-authority/user-a
 import { QualityParameterComponent } from './full-pages/quality-control/quality-parameter/quality-parameter.component';
 import { CategoryListComponent } from './full-pages/category/category-list/category-list.component';
 import { CategoryCreateComponent } from './full-pages/category/category-create/category-create.component';
+import { QualityControlDetailComponent } from './full-pages/quality-control/quality-control-detail/quality-control-detail.component';
+import { QualityControlStandartTableComponent } from './full-pages/quality-control/quality-control-standart-table/quality-control-standart-table.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { CategoryCreateComponent } from './full-pages/category/category-create/c
     QualityParameterComponent,
     CategoryListComponent,
     CategoryCreateComponent,
+    QualityControlDetailComponent,
+    QualityControlStandartTableComponent,
   ],
   imports: [
     BrowserModule,

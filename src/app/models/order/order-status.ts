@@ -1,10 +1,8 @@
 export enum OrderStatus {
-  REQUESTED = "REQUESTED",
   PENDING = "PENDING",
   REJECTED = "REJECTED",
   APPROVED = "APPROVED",
-  PROCESSING = "PROCESSING",
-  CANCELED = "CANCELED",
+  REFUSED = "REFUSED",
   COMPLETED = "COMPLETED",
-  // Add other statuses as per your Java Enum definition
+  RECEIVED = "RECEIVED",
 }
