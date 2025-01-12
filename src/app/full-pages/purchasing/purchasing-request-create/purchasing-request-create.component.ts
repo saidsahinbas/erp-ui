@@ -74,6 +74,11 @@ export class PurchasingRequestCreateComponent implements OnInit {
       alert('Lütfen bir tedarikçi seçin!');
       return;
     }
+    if (this.orderLines.length > 0) {
+      alert('Zaten bir ürün seçtiniz. Yeni ürün seçmek için önce mevcut ürünü kaldırın.');
+      return;
+    }
+
     this.productService.getProductsBySupplier(this.selectedSupplierName).subscribe(
       (data) => {
         this.allProducts = data.products; // Store all fetched products
@@ -94,6 +99,10 @@ export class PurchasingRequestCreateComponent implements OnInit {
   }
 
   openProductModal(): void {
+    if (this.orderLines.length > 0) {
+      alert('Zaten bir ürün seçtiniz. Yeni ürün seçmek için önce mevcut ürünü kaldırın.');
+      return;
+    }
     this.isProductModalOpen = true;
   }
 
@@ -102,6 +111,10 @@ export class PurchasingRequestCreateComponent implements OnInit {
   }
 
   addProductToOrder(product: any): void {
+    if (this.orderLines.length > 0) {
+      return; // Prevent adding multiple products
+    }
+
     // Add the product to the orderLines
     const orderLine = {
       productId: product.productId,
@@ -113,8 +126,8 @@ export class PurchasingRequestCreateComponent implements OnInit {
     };
     this.orderLines.push(orderLine);
 
-    // Remove the product from the modal list
-    this.products = this.filterProducts(this.allProducts);
+    // Close the modal after selection
+    this.closeProductModal();
   }
 
   removeProductFromOrder(index: number): void {
@@ -131,9 +144,6 @@ export class PurchasingRequestCreateComponent implements OnInit {
 
     // Remove the product from the orderLines
     this.orderLines.splice(index, 1);
-
-    // Refresh the modal product list
-    this.products = this.filterProducts(this.allProducts);
   }
 
   createOrder(): void {

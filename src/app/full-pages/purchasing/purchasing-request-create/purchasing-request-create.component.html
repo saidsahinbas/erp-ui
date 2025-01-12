@@ -83,7 +83,7 @@
       <div class="mt-6 flex justify-end">
         <button
           type="button"
-          [disabled]="!selectedSupplierName"
+          [disabled]="orderLines.length > 0 || !selectedSupplierName"
           (click)="loadProductsBySupplier()"
           class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg"
         >
@@ -99,6 +99,11 @@
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
   >
     <div class="bg-white w-3/4 p-6 rounded-lg shadow-lg">
+      <!-- Bilgilendirme Alanı -->
+      <div class="bg-blue-100 text-blue-700 p-4 rounded-md mb-4">
+        <p>Modal içerisinde yalnızca tek bir ürün seçebilirsiniz. Mevcut ürünü kaldırmadan başka bir ürün seçemezsiniz.</p>
+      </div>
+
       <h2 class="text-xl font-bold text-gray-700 mb-4">Ürün Seç</h2>
       <table class="w-full border-collapse">
         <thead>
@@ -118,6 +123,7 @@
           <td class="p-3 border">{{ product.salePrice }}</td>
           <td class="p-3 border">
             <button
+              [disabled]="orderLines.length > 0"
               (click)="addProductToOrder(product)"
               class="bg-green-600 text-white px-4 py-1 rounded-lg ml-2"
             >
@@ -127,6 +133,7 @@
         </tr>
         </tbody>
       </table>
+
       <div class="mt-4 flex justify-end">
         <button
           (click)="closeProductModal()"
@@ -137,6 +144,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Order Lines Table -->
   <div class="bg-white p-6 rounded-lg shadow-md">
