@@ -78,7 +78,7 @@ export const routes: Routes = [
     children: [
       { path: 'results', component: QualityControlTestResultsComponent, canActivate: [AuthGuard] },
       { path: 'create', component: QualityParameterComponent, canActivate: [AuthGuard] },
-      { path: 'detail', component: QualityControlDetailComponent, canActivate: [AuthGuard] },
+      { path: 'detail/:id', component: QualityControlDetailComponent, canActivate: [AuthGuard] },
       { path: 'table', component: QualityControlStandartTableComponent, canActivate: [AuthGuard] },
     ]
   },

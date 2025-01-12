@@ -53,47 +53,30 @@
     <table class="w-full border-collapse text-gray-700 text-sm">
       <thead>
       <tr class="bg-gray-100">
-        <th class="p-3 text-left border">Parti No</th>
+        <th class="p-3 text-left border">Sipariş No</th>
         <th class="p-3 text-left border">Tedarikçi</th>
-        <th class="p-3 text-left border">Ürün Adı</th>
         <th class="p-3 text-left border">Test Sonucu</th>
         <th class="p-3 text-left border">İşlem</th>
       </tr>
       </thead>
       <tbody>
-      <!-- Row 1 -->
-      <tr class="border-b">
-        <td class="p-3 border">PN123</td>
-        <td class="p-3 border">Tedarikçi 1</td>
-        <td class="p-3 border">Kamera Lens</td>
+      <tr *ngFor="let item of allResults" class="border-b">
+        <td class="p-3 border">{{ item.orderId }}</td>
+        <td class="p-3 border">{{ item.supplierName }}</td>
+        <td class="p-3 border">{{ item.testResult }}</td>
         <td class="p-3 border">
-          <select class="w-full px-2 py-1 border rounded-lg">
-            <option>Bekliyor</option>
-            <option>Onaylandı</option>
-            <option>Reddedildi</option>
-          </select>
-        </td>
-        <td class="p-3 border">
-          <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg">
-            Detaylar
+          <!-- Conditional Button Rendering -->
+          <button
+            *ngIf="item.testResult === 'PENDING'"
+            [routerLink]="['/quality/detail/', item.orderId]"
+            class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg">
+            Test Et
           </button>
-        </td>
-      </tr>
-      <!-- Row 2 -->
-      <tr>
-        <td class="p-3 border">PN124</td>
-        <td class="p-3 border">Tedarikçi 2</td>
-        <td class="p-3 border">Elektronik Devre</td>
-        <td class="p-3 border">
-          <select class="w-full px-2 py-1 border rounded-lg">
-            <option>Bekliyor</option>
-            <option>Onaylandı</option>
-            <option>Reddedildi</option>
-          </select>
-        </td>
-        <td class="p-3 border">
-          <button [routerLink]="['/quality/detail']" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg">
-            Detaylar
+          <button
+            *ngIf="item.testResult === 'ACCEPTED' || item.testResult === 'REJECTED'"
+            [routerLink]="['/quality/result', item.orderId]"
+            class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg">
+            Sonuç Göster
           </button>
         </td>
       </tr>

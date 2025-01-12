@@ -22,7 +22,7 @@
           <th class="px-4 py-2 text-left border-b">Telefon</th>
           <th class="px-4 py-2 text-left border-b">Ülke</th>
           <th class="px-4 py-2 text-left border-b">Durum</th>
-          <th class="px-4 py-2 text-left border-b">İşlem</th>
+          <th class="px-4 py-2 text-left border-b">Tedarikçi Seviyesi</th>
         </tr>
         </thead>
         <tbody>
@@ -36,14 +36,7 @@
           <td class="px-4 py-2 border-b">{{ supplier.phone }}</td>
           <td class="px-4 py-2 border-b">{{ supplier.country?.name }}</td>
           <td class="px-4 py-2 border-b">{{ supplier.status }}</td>
-          <td class="px-4 py-2 border-b">
-            <button
-              class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-              (click)="viewSupplierDetails(supplier.id)"
-            >
-              Detaylar
-            </button>
-          </td>
+          <td class="px-4 py-2 border-b">{{ supplier.currentQualityLevel }}</td>
         </tr>
         <tr *ngIf="paginatedSuppliers.length === 0" class="text-center text-gray-500">
           <td colspan="7" class="py-4">Hiç tedarikçi bulunamadı.</td>

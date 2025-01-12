@@ -1,6 +1,7 @@
 import {OrderLine} from "./order-line";
 import {OrderStatus} from "./order-status";
 import {OrderType} from "./order-type";
+import {QualityControlResult} from "../quality-control/result/quality-control-result";
 
 export class Order {
   id!: number; // Maps to Integer in Java
@@ -14,6 +15,7 @@ export class Order {
   orderType?: OrderType; // Maps to Enum OrderType in Java
   orderLineList?: OrderLine[]; // Maps to List<OrderLine> in Java
   price?: number; // Maps to BigDecimal in Java
+  qualityControlResult: QualityControlResult;
 }
 
 

@@ -4,216 +4,164 @@
     Kalite Kontrol Detayları
   </h1>
 
-  <!-- Quality Control Details Section -->
-  <div class="space-y-6">
-    <!-- Direnç Section -->
-    <div>
-      <h2 class="text-lg font-semibold text-gray-600">Direnç</h2>
-      <table class="w-full border-collapse text-gray-700 text-sm mt-4">
-        <thead>
-        <tr class="bg-gray-100 text-gray-600">
-          <th class="p-3 border text-left">#</th>
-          <th class="p-3 border text-left">Sonuç</th>
-          <th class="p-3 border text-left">Min Değer</th>
-          <th class="p-3 border text-left">Max Değer</th>
-          <th class="p-3 border text-left">Standart Değer</th>
-          <th class="p-3 border text-left">Operatör</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="border-b">
-          <td class="p-3">1</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">10</td>
-          <td class="p-3">50</td>
-          <td class="p-3">30</td>
-          <td class="p-3">=</td>
-        </tr>
-        <tr class="border-b">
-          <td class="p-3">2</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">10</td>
-          <td class="p-3">50</td>
-          <td class="p-3">30</td>
-          <td class="p-3">=</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Basınç Section -->
-    <div>
-      <h2 class="text-lg font-semibold text-gray-600">Basınç</h2>
-      <table class="w-full border-collapse text-gray-700 text-sm mt-4">
-        <thead>
-        <tr class="bg-gray-100 text-gray-600">
-          <th class="p-3 border text-left">#</th>
-          <th class="p-3 border text-left">Sonuç</th>
-          <th class="p-3 border text-left">Min Değer</th>
-          <th class="p-3 border text-left">Max Değer</th>
-          <th class="p-3 border text-left">Standart Değer</th>
-          <th class="p-3 border text-left">Operatör</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="border-b">
-          <td class="p-3">1</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">100</td>
-          <td class="p-3">200</td>
-          <td class="p-3">150</td>
-          <td class="p-3"><=</td>
-        </tr>
-        <tr class="border-b">
-          <td class="p-3">2</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">100</td>
-          <td class="p-3">200</td>
-          <td class="p-3">150</td>
-          <td class="p-3"><=</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Paketleme Section -->
-    <div>
-      <h2 class="text-lg font-semibold text-gray-600">Paketleme</h2>
-      <table class="w-full border-collapse text-gray-700 text-sm mt-4">
-        <thead>
-        <tr class="bg-gray-100 text-gray-600">
-          <th class="p-3 border text-left">#</th>
-          <th class="p-3 border text-left">Sonuç</th>
-          <th class="p-3 border text-left">Min Değer</th>
-          <th class="p-3 border text-left">Max Değer</th>
-          <th class="p-3 border text-left">Standart Değer</th>
-          <th class="p-3 border text-left">Operatör</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="border-b">
-          <td class="p-3">1</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">1</td>
-          <td class="p-3">1</td>
-          <td class="p-3">1</td>
-          <td class="p-3">=</td>
-        </tr>
-        <tr class="border-b">
-          <td class="p-3">2</td>
-          <td class="p-3">
-            <input
-              type="text"
-              placeholder="Sonuç"
-              class="w-full px-2 py-1 border rounded-md"
-            />
-          </td>
-          <td class="p-3">1</td>
-          <td class="p-3">1</td>
-          <td class="p-3">1</td>
-          <td class="p-3">=</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center p-4">
+    <p class="text-blue-500 text-lg">Veriler yükleniyor...</p>
   </div>
 
-  <!-- Quality Control Results Section -->
-  <div class="mt-8">
-    <h2 class="text-lg font-semibold text-gray-600 text-center mb-4">
-      Kalite Kontrol Başarım Sonuçları
-    </h2>
-    <div class="grid grid-cols-2 gap-6">
-      <!-- Left Table -->
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <h3 class="text-md font-semibold text-gray-600 mb-2">
-          Kalite Başarımı
+  <!-- Error State -->
+  <div *ngIf="hasError" class="text-center p-4 text-red-600">
+    <p>Veriler yüklenirken bir hata oluştu. Lütfen tekrar deneyiniz.</p>
+  </div>
+
+  <!-- Data Display -->
+  <div *ngIf="!isLoading && !hasError">
+    <!-- Loop through each product -->
+    <div *ngFor="let product of testData" class="mb-8 bg-white p-6 rounded-lg shadow-md">
+      <!-- Product Header -->
+      <h2 class="text-lg font-semibold text-gray-600">
+        Ürün: {{ product.productName }} (Miktar: {{ product.productQuantity }})
+      </h2>
+      <p class="text-sm text-gray-500 mb-4">Tedarikçi Seviyesi: {{ product.supplierLevel }}</p>
+
+      <!-- Quality Parameters -->
+      <div *ngFor="let parameter of product.qualityParameters; let paramIndex = index" class="mb-6">
+        <h3 class="text-md font-semibold text-gray-700">
+          {{ parameter.name }}
         </h3>
-        <table class="w-full border-collapse text-gray-700 text-sm">
-          <thead>
-          <tr class="bg-gray-100 text-gray-600">
-            <th class="p-3 border text-left">Sonuç</th>
-            <th class="p-3 border text-left">Adet</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="border-b">
-            <td class="p-3">Onay</td>
-            <td class="p-3">6</td>
-          </tr>
-          <tr class="border-b">
-            <td class="p-3">Red</td>
-            <td class="p-3">2</td>
-          </tr>
-          </tbody>
-        </table>
+        <p class="text-sm text-gray-500 mb-2">
+          Açıklama: {{ parameter.description }}
+        </p>
+
+        <!-- Sample Inputs with Pagination -->
+        <div>
+          <table class="w-full border-collapse text-gray-700 text-sm mt-4">
+            <thead>
+            <tr class="bg-gray-100 text-gray-600">
+              <th class="p-3 border text-left">#</th>
+              <th class="p-3 border text-left">Sonuç</th>
+              <th class="p-3 border text-left">Min Değer</th>
+              <th class="p-3 border text-left">Max Değer</th>
+              <th class="p-3 border text-left">Standart Değer</th>
+              <th class="p-3 border text-left">Operatör</th>
+              <th class="p-3 border text-left">Değer Tipi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              *ngFor="let sample of getPaginatedSamples(product.sampleSize, currentPage[product.productId][paramIndex]); let i = index"
+              class="border-b"
+            >
+              <td class="p-3">{{ i + 1 + (currentPage[product.productId][paramIndex] - 1) * pageSize }}</td>
+              <td class="p-3">
+                <input
+                  type="text"
+                  placeholder="Sonuç"
+                  class="w-full px-2 py-1 border rounded-md"
+                />
+              </td>
+              <td class="p-3">{{ parameter.minValue || '—' }}</td>
+              <td class="p-3">{{ parameter.maxValue || '—' }}</td>
+              <td class="p-3">{{ parameter.defaultValue || '—' }}</td>
+              <td class="p-3">{{ parameter.valueType === 'RANGE' ? '=' : '—' }}</td>
+              <td class="p-3">{{ parameter.valueType }}</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!-- Pagination Controls -->
+          <div class="mt-4 flex justify-center space-x-4">
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              [disabled]="currentPage[product.productId][paramIndex] === 1"
+              (click)="changePage(product.productId, paramIndex, -1)"
+            >
+              Önceki
+            </button>
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              [disabled]="currentPage[product.productId][paramIndex] === getPageCount(product.sampleSize)"
+              (click)="changePage(product.productId, paramIndex, 1)"
+            >
+              Sonraki
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!-- Right Form -->
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <form>
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-600">Kontrol No:</label>
-            <input
-              type="text"
-              placeholder="Kontrol Numarası"
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-600">Kontrol Tarihi:</label>
-            <input
-              type="date"
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-600">Kontrol Eden:</label>
-            <input
-              type="text"
-              placeholder="Kontrol Eden Kişi"
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <button
-            type="submit"
-            class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-          >
-            Kaydet
-          </button>
-        </form>
+      <!-- Product Summary -->
+      <div class="mt-6 bg-gray-100 p-4 rounded-md">
+        <h4 class="text-sm font-semibold text-gray-600">Ürün Özeti</h4>
+        <p class="text-sm text-gray-500">
+          Onay: {{ calculateApproveCount(product) }}, Red: {{ calculateRejectCount(product) }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Kalite Kontrol Başarım Sonuçları Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md mt-8">
+      <h2 class="text-lg font-semibold text-gray-600 text-center mb-4">
+        Kalite Kontrol Başarım Sonuçları
+      </h2>
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Summary Table -->
+        <div>
+          <h3 class="text-md font-semibold text-gray-600 mb-2">Kalite Başarımı</h3>
+          <table class="w-full border-collapse text-gray-700 text-sm">
+            <thead>
+            <tr class="bg-gray-100 text-gray-600">
+              <th class="p-3 border text-left">Sonuç</th>
+              <th class="p-3 border text-left">Adet</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="p-3">Onay</td>
+              <td class="p-3">10</td>
+            </tr>
+            <tr>
+              <td class="p-3">Red</td>
+              <td class="p-3">20</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Quality Control Form -->
+        <div>
+          <form>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Kontrol No:</label>
+              <input
+                type="text"
+                placeholder="Kontrol Numarası"
+                class="w-full px-3 py-2 border rounded-md"
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Kontrol Tarihi:</label>
+              <input
+                type="date"
+                class="w-full px-3 py-2 border rounded-md"
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Kontrol Eden:</label>
+              <input
+                type="text"
+                placeholder="Kontrol Eden Kişi"
+                class="w-full px-3 py-2 border rounded-md"
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Kaydet
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

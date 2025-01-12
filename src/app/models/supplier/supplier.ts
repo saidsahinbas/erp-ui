@@ -3,6 +3,7 @@ import {City} from "../city/city";
 import {Country} from "../country/country";
 import {SupplierStatus} from "./supplier-status";
 import {Document} from "../document/document";
+import {Level} from "../quality-control/level/level";
 
 export class Supplier {
   id: number; // Unique identifier for the supplier
@@ -15,4 +16,6 @@ export class Supplier {
   status: SupplierStatus; // Status of the supplier (e.g., ACTIVE, INACTIVE)
   country: Country; // The country associated with the supplier
   city: City; // The city associated with the supplier
+  currentQualityLevel: Level;
+  score: number;
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {QualityControlResultService} from "../../../services/quality-control-result.service";
+import {Router} from "@angular/router";
+import {QualityControlResultList} from "../../../models/quality-control/result/quality-control-result-list";
 
 @Component({
   selector: 'app-quality-control-test-results',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QualityControlTestResultsComponent implements OnInit {
 
-  constructor() { }
+  allResults: QualityControlResultList[];
+
+  constructor(private qualityControlResultService: QualityControlResultService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.loadAllResults();
   }
 
+  loadAllResults(): void {
+    this.qualityControlResultService.getAllResults().subscribe((res) => {
+      this.allResults = res;
+      console.log(this.allResults);
+    })
+  }
 }

@@ -1,47 +1,49 @@
-<div class="container mx-auto p-6">
-  <table class="table-auto border-collapse border border-gray-400 w-full text-sm text-gray-700">
+<div class="p-4">
+  <table class="min-w-full border">
     <thead>
-    <!-- Üst Başlıklar -->
-    <tr class="bg-gray-100">
-      <th class="border border-gray-400 px-4 py-2" rowspan="2">Parti A</th>
-      <th class="border border-gray-400 px-4 py-2" rowspan="2">Parti B</th>
-      <th class="border border-gray-400 px-4 py-2" colspan="3">1. Seviye Kontrol</th>
-      <th class="border border-gray-400 px-4 py-2" colspan="3">2. Seviye Kontrol</th>
-      <th class="border border-gray-400 px-4 py-2" colspan="3">3. Seviye Kontrol</th>
-      <th class="border border-gray-400 px-4 py-2" colspan="3">4. Seviye Kontrol</th>
+    <tr>
+      <th class="border px-4 py-2" rowspan="2">Min</th>
+      <th class="border px-4 py-2" rowspan="2">Max</th>
+      <th class="border px-4 py-2" colspan="3">1. Seviye Kontrol</th>
+      <th class="border px-4 py-2" colspan="3">2. Seviye Kontrol</th>
+      <th class="border px-4 py-2" colspan="3">3. Seviye Kontrol</th>
+      <th class="border px-4 py-2" colspan="3">4. Seviye Kontrol</th>
     </tr>
-    <!-- Alt Başlıklar -->
-    <tr class="bg-gray-100">
-      <th class="border border-gray-400 px-4 py-2">Numune Sayısı</th>
-      <th class="border border-gray-400 px-4 py-2">Kabul</th>
-      <th class="border border-gray-400 px-4 py-2">Red</th>
-      <th class="border border-gray-400 px-4 py-2">Numune Sayısı</th>
-      <th class="border border-gray-400 px-4 py-2">Kabul</th>
-      <th class="border border-gray-400 px-4 py-2">Red</th>
-      <th class="border border-gray-400 px-4 py-2">Numune Sayısı</th>
-      <th class="border border-gray-400 px-4 py-2">Kabul</th>
-      <th class="border border-gray-400 px-4 py-2">Red</th>
-      <th class="border border-gray-400 px-4 py-2">Numune Sayısı</th>
-      <th class="border border-gray-400 px-4 py-2">Kabul</th>
-      <th class="border border-gray-400 px-4 py-2">Red</th>
+    <tr>
+      <th class="border px-4 py-2">Numune Sayısı</th>
+      <th class="border px-4 py-2">Kabul</th>
+      <th class="border px-4 py-2">Red</th>
+      <th class="border px-4 py-2">Numune Sayısı</th>
+      <th class="border px-4 py-2">Kabul</th>
+      <th class="border px-4 py-2">Red</th>
+      <th class="border px-4 py-2">Numune Sayısı</th>
+      <th class="border px-4 py-2">Kabul</th>
+      <th class="border px-4 py-2">Red</th>
+      <th class="border px-4 py-2">Numune Sayısı</th>
+      <th class="border px-4 py-2">Kabul</th>
+      <th class="border px-4 py-2">Red</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of data" class="border-b">
-      <td class="border border-gray-400 px-4 py-2">{{ item.partAMin }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.partAMax }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.sampleSizeLevel1 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.acceptedLevel1 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.rejectedLevel1 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.sampleSizeLevel2 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.acceptedLevel2 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.rejectedLevel2 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.sampleSizeLevel3 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.acceptedLevel3 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.rejectedLevel3 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.sampleSizeLevel4 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.acceptedLevel4 }}</td>
-      <td class="border border-gray-400 px-4 py-2">{{ item.rejectedLevel4 }}</td>
+    <tr *ngFor="let row of groupedData">
+      <td class="border px-4 py-2">{{row.partAMin}}</td>
+      <td class="border px-4 py-2">{{row.partAMax}}</td>
+
+      <td class="border px-4 py-2">{{row.level1?.sampleSize}}</td>
+      <td class="border px-4 py-2">{{row.level1?.acceptedLimit}}</td>
+      <td class="border px-4 py-2">{{row.level1?.rejectedLimit}}</td>
+
+      <td class="border px-4 py-2">{{row.level2?.sampleSize}}</td>
+      <td class="border px-4 py-2">{{row.level2?.acceptedLimit}}</td>
+      <td class="border px-4 py-2">{{row.level2?.rejectedLimit}}</td>
+
+      <td class="border px-4 py-2">{{row.level3?.sampleSize}}</td>
+      <td class="border px-4 py-2">{{row.level3?.acceptedLimit}}</td>
+      <td class="border px-4 py-2">{{row.level3?.rejectedLimit}}</td>
+
+      <td class="border px-4 py-2">{{row.level4?.sampleSize}}</td>
+      <td class="border px-4 py-2">{{row.level4?.acceptedLimit}}</td>
+      <td class="border px-4 py-2">{{row.level4?.rejectedLimit}}</td>
     </tr>
     </tbody>
   </table>

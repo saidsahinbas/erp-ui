@@ -69,7 +69,4 @@ export class SupplierListComponent implements OnInit {
     this.router.navigate(['/suppliers/create']);
   }
 
-  viewSupplierDetails(id: number): void {
-    this.router.navigate(['/suppliers', id]);
-  }
 }

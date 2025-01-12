@@ -6,6 +6,7 @@ import {City} from "../../../models/city/city";
 import {Country} from "../../../models/country/country";
 import {CountryCityService} from "../../../services/country-city.service";
 import {SupplierStatus} from "../../../models/supplier/supplier-status";
+import {Level} from "../../../models/quality-control/level/level";
 
 @Component({
   selector: 'app-supplier-create',
@@ -17,6 +18,7 @@ export class SupplierCreateComponent implements OnInit {
   cities: City[] = [];
   countries: Country[] = [];
   supplierStatuses = Object.values(SupplierStatus); // Enum values for supplier status
+  levels = Object.values(Level); // Enum values for levels
 
   uploadedDocuments: File[] = []; // To store the uploaded files
 
@@ -28,7 +30,8 @@ export class SupplierCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCountries();
-    this.supplier.status = SupplierStatus.AKTIF; // Set default status
+    this.supplier.status = SupplierStatus.AKTIF; // Default status
+    this.supplier.currentQualityLevel = Level.LEVEL_1; // Default level
   }
 
   // Fetch all countries
@@ -69,8 +72,9 @@ export class SupplierCreateComponent implements OnInit {
       phone: this.supplier.phone,
       note: this.supplier.note,
       status: this.supplier.status,
-      country: { id: this.supplier.country.id }, // Pass only the country ID
-      city: { id: this.supplier.city.id } // Pass only the city ID
+      country: { id: this.supplier.country?.id }, // Pass only the country ID
+      city: { id: this.supplier.city?.id }, // Pass only the city ID
+      currentQualityLevel: this.supplier.currentQualityLevel // Selected quality level
     }));
 
     // Add uploaded documents to the form data
@@ -85,6 +89,9 @@ export class SupplierCreateComponent implements OnInit {
       },
       (error) => {
         console.error('Error creating supplier:', error);
+      },
+      () => {
+        console.log('Navigation completed.');
       }
     );
   }
