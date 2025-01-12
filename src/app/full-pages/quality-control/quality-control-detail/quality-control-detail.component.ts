@@ -74,4 +74,14 @@ export class QualityControlDetailComponent implements OnInit {
   getPageCount(sampleSize: number): number {
     return Math.ceil(sampleSize / this.pageSize);
   }
+
+  // Calculate total approved count
+  calculateTotalApproveCount(): number {
+    return this.testData.reduce((sum, product) => sum + product.approveSize, 0);
+  }
+
+// Calculate total rejected count
+  calculateTotalRejectCount(): number {
+    return this.testData.reduce((sum, product) => sum + product.rejectSize, 0);
+  }
 }
