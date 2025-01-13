@@ -1,5 +1,5 @@
 export enum QualityResultStatus {
-  ACCEPTED = 'ACCEPTED',
+  APPROVED = 'APPROVED',
   REJECTED = 'REJECTED',
   PENDING = 'PENDING',
 }
