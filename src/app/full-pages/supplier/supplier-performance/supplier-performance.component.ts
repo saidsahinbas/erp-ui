@@ -175,4 +175,18 @@ export class SupplierPerformanceComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  getTranslatedLabel(predictedLabel: string): string {
+    switch (predictedLabel) {
+      case 'Avoid Collaboration':
+        return 'Çalışılması Önerilmez';
+      case 'Monitor Closely':
+        return 'Yakından Takip Edilmeli';
+      case 'Recommended Supplier':
+        return 'Önerilen Tedarikçi';
+      default:
+        return predictedLabel; // Varsayılan olarak orijinal etiketi döndür
+    }
+  }
+
 }
