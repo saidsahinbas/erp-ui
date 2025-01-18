@@ -34,6 +34,10 @@ export class QualityControlDetailComponent implements OnInit {
 
   standartOnay: number;
   standartRed: number;
+  sampleSize: number;
+  acceptedSize: number;
+  rejectedSize: number;
+
   constructor(
     private qualityControlLevelService: QualityControlLevelService,
     private activatedRoute: ActivatedRoute,
@@ -195,9 +199,15 @@ export class QualityControlDetailComponent implements OnInit {
       this.orderId,
       testResult,
       this.productId = this.testData[0].productId,
-      this.userSession.id
+      this.userSession.id,
+      this.testData[0].sampleSize, // Sample size
+      this.testData[0].rejectSize,
+      this.testData[0].approveSize,
+      calculatedApproveCount,
+      calculatedRejectCount
     );
 
+    console.log(resultDto);
     // Sonuçları backende gönder
     this.qualityControlResultService.saveResult(resultDto).subscribe(
       () => {

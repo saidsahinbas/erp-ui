@@ -36,6 +36,7 @@ import { CategoryListComponent } from './full-pages/category/category-list/categ
 import { CategoryCreateComponent } from './full-pages/category/category-create/category-create.component';
 import { QualityControlDetailComponent } from './full-pages/quality-control/quality-control-detail/quality-control-detail.component';
 import { QualityControlStandartTableComponent } from './full-pages/quality-control/quality-control-standart-table/quality-control-standart-table.component';
+import { SupplierDetailComponent } from './full-pages/supplier/supplier-detail/supplier-detail.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { QualityControlStandartTableComponent } from './full-pages/quality-contr
     CategoryCreateComponent,
     QualityControlDetailComponent,
     QualityControlStandartTableComponent,
+    SupplierDetailComponent,
   ],
   imports: [
     BrowserModule,

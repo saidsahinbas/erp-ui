@@ -4,50 +4,6 @@
     Kalite Kontrol Test Sonuçları
   </h1>
 
-  <!-- Filtreleme Formu -->
-  <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-    <div class="grid grid-cols-3 gap-4">
-      <!-- Parti Numarası -->
-      <div>
-        <label class="block text-gray-600 text-sm mb-1" for="partiNo">Parti Numarası:</label>
-        <input
-          id="partiNo"
-          type="text"
-          placeholder="Parti numarası girin"
-          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
-      <!-- Tedarikçi -->
-      <div>
-        <label class="block text-gray-600 text-sm mb-1" for="tedarikci">Tedarikçi:</label>
-        <select
-          id="tedarikci"
-          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
-          <option>Tümü</option>
-          <option>Tedarikçi 1</option>
-          <option>Tedarikçi 2</option>
-        </select>
-      </div>
-      <!-- Ürün Adı -->
-      <div>
-        <label class="block text-gray-600 text-sm mb-1" for="urunAdi">Ürün Adı:</label>
-        <input
-          id="urunAdi"
-          type="text"
-          placeholder="Ürün adı girin"
-          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
-    </div>
-    <!-- Filtre Butonu -->
-    <div class="mt-4">
-      <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg">
-        Filtrele
-      </button>
-    </div>
-  </div>
-
   <!-- Tablo -->
   <div class="bg-white p-4 rounded-lg shadow-md">
     <table class="w-full border-collapse text-gray-700 text-sm">
@@ -60,10 +16,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of allResults" class="border-b">
+      <tr *ngFor="let item of paginatedResults" class="border-b">
         <td class="p-3 border">{{ item.orderId }}</td>
         <td class="p-3 border">{{ item.supplierName }}</td>
-        <td class="p-3 border">{{ item.testResult }}</td>
+        <td
+          class="p-3 border font-bold"
+          [ngClass]="{
+            'text-green-600': item.testResult === 'APPROVED',
+            'text-red-600': item.testResult === 'REJECTED'
+          }"
+        >
+          {{ item.testResult }}
+        </td>
         <td class="p-3 border">
           <!-- Conditional Button Rendering -->
           <button
@@ -72,15 +36,43 @@
             class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg">
             Test Et
           </button>
-          <button
-            *ngIf="item.testResult === 'APPROVED' || item.testResult === 'REJECTED'"
-            [routerLink]="['/quality/result', item.orderId]"
-            class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg">
-            Sonuç Göster
-          </button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination Bölümü -->
+  <nav class="mt-4 flex justify-center">
+    <ul class="inline-flex space-x-2">
+      <li>
+        <button
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Önceki
+        </button>
+      </li>
+      <li *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button
+          (click)="goToPage(i + 1)"
+          [class.bg-purple-700]="currentPage === i + 1"
+          [class.text-white]="currentPage === i + 1"
+          class="focus:outline-none text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg"
+        >
+          {{ i + 1 }}
+        </button>
+      </li>
+      <li>
+        <button
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50"
+        >
+          Sonraki
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>

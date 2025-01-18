@@ -16,7 +16,7 @@ export class PurchasingRequestApprovalComponent implements OnInit {
   canUpdateOrDelete: boolean = false;
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   totalPages: number = 0;
   paginatedOrders: GetOrderByUserResponse[] = [];
 

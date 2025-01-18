@@ -162,30 +162,37 @@
       <span class="text-lg font-medium text-gray-800">Kalite Kontrol İşlemleri</span>
       <span>&#9660;</span> <!-- Down Arrow Icon -->
     </button>
+
+    <!-- Kalite Kontrol Listesi -->
     <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
       <div *ngIf="hasReadPermission('Quality Control Test Results')" class="flex items-center justify-between">
         <a [routerLink]="['/quality/create']" class="flex items-center">
-          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
+          <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl">📋</div>
           <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol Listesi</span>
         </a>
       </div>
     </div>
+
+    <!-- Kalite Kontrol Sonuçları -->
     <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
       <div *ngIf="hasReadPermission('Quality Control Test Results')" class="flex items-center justify-between">
         <a [routerLink]="['/quality/results']" class="flex items-center">
-          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
+          <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl">📊</div>
           <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol Sonuçları</span>
         </a>
       </div>
     </div>
+
+    <!-- Kalite Kontrol Standart Tablosu (AQL) -->
     <div *ngIf="isDropdownOpen('quality')" class="bg-white shadow rounded p-4">
       <div class="flex items-center justify-between">
         <a [routerLink]="['/quality/table']" class="flex items-center">
-          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white text-2xl">🔍</div>
+          <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">📈</div>
           <span class="ml-4 text-gray-700 font-medium">Kalite Kontrol Standart Tablosu (AQL)</span>
         </a>
       </div>
     </div>
   </div>
+
 
 </main>

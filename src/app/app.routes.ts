@@ -37,6 +37,7 @@ import {
 import {
   QualityControlStandartTableComponent
 } from "./full-pages/quality-control/quality-control-standart-table/quality-control-standart-table.component";
+import {SupplierDetailComponent} from "./full-pages/supplier/supplier-detail/supplier-detail.component";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -60,6 +61,7 @@ export const routes: Routes = [
     path: 'suppliers',
     children: [
       { path: '', component: SupplierListComponent, canActivate: [AuthGuard] },
+      { path: 'detail/:id', component: SupplierDetailComponent, canActivate: [AuthGuard] },
       { path: 'performance', component: SupplierPerformanceComponent, canActivate: [AuthGuard] },
       { path: 'create', component: SupplierCreateComponent, canActivate: [AuthGuard] },
     ],
